@@ -77,7 +77,8 @@ export const strapiArticleList = async (
         pagination: {
             page: page || 1,
             pageSize: pageSize || 10
-        }
+        },
+        sort: ['createdAt:desc']
     }
     if (categoryName) {
         queryOption.filters.category.categoryName = { $eq: categoryName }
@@ -127,4 +128,31 @@ export const strapiPageviewCount = async (): Promise<number> => {
 }
 // --- end Pageview
 
+
+
+// --- start notice
+type typeStrapiEntityNotice = typeStrapiEntity<{
+    text: string
+}>
+export const strapiNoticeList = async (
+    { page, pageSize }:
+        Partial<typePagination>
+): Promise<typeStrapiFind<typeStrapiEntityNotice>> => {
+    const queryOption = {
+        populate: '*',
+        pagination: {
+            page: page || 1,
+            pageSize: pageSize || 10
+        },
+        sort: ['createdAt:desc']
+    }
+    const query = qs.stringify(queryOption, {
+        encodeValuesOnly: true
+    })
+    const res = await request<typeStrapiFind<typeStrapiEntityNotice>>({
+        url: `/api/notices?${query}`
+    })
+    return res
+}
+// --- end notice
 

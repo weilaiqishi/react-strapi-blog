@@ -14,7 +14,7 @@ const SiteCard: React.FC = () => {
 
   const { data, loading } = useRequest(api.strapiPageviewCount, {
     retryCount: 3,
-    cacheKey: `SiteCard-${DB.Count}`,
+    cacheKey: `SiteCard-siteCount`,
     staleTime: siteCountStale
   });
 
