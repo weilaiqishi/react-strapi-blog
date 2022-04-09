@@ -8,7 +8,7 @@ import { getData } from '@/utils/apis/getData';
 import { staleTime } from '@/utils/constant';
 
 import { Title } from '../titleConfig';
-import ClassBar from './ClassBar';
+import CategoriesBar from './CategoriesBar';
 import s from './index.scss';
 
 interface ClassType {
@@ -17,20 +17,20 @@ interface ClassType {
   count: number;
 }
 
-const Classes: React.FC = () => {
+const Categories: React.FC = () => {
   const navigate = useNavigate();
 
   const { data, loading } = useRequest(getData, {
     defaultParams: [DB.Class],
     retryCount: 3,
-    cacheKey: `Classes-${DB.Class}`,
+    cacheKey: `categories-${DB.Class}`,
     staleTime
   });
 
   return (
-    <Layout title={Title.Classes} loading={loading} className={s.classBox} rows={8}>
+    <Layout title={Title.categories} loading={loading} className={s.classBox} rows={8}>
       {data?.data.map((item: ClassType) => (
-        <ClassBar
+        <CategoriesBar
           className={s.classItem}
           key={item._id}
           content={item.class}
@@ -42,4 +42,4 @@ const Classes: React.FC = () => {
   );
 };
 
-export default Classes;
+export default Categories;

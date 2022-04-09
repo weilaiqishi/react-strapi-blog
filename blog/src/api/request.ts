@@ -1,12 +1,13 @@
 import type { RequestConfig } from './axios'
 import MyAxios from './axios'
+import { baseURL } from './baseUrl'
 
 interface TheRequestConfig<T> extends RequestConfig {
     data?: T
 }
 
 const request = new MyAxios({
-    baseURL: 'http://localhost:1337',
+    baseURL ,
     timeout: 1000 * 60 * 5,
     interceptors: {
         // 请求拦截器

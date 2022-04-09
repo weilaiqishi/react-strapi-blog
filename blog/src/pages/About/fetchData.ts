@@ -3,7 +3,7 @@ import { getOrderData } from '@/utils/apis/getOrderData';
 import { getSum } from '@/utils/apis/getSum';
 
 export const fetchData = async () => {
-  const [about, classes, artSum] = await Promise.all([
+  const [about, categories, artSum] = await Promise.all([
     getOrderData({ dbName: DB.About }),
     getOrderData({ dbName: DB.Class }),
     getSum(DB.Article)
@@ -11,7 +11,7 @@ export const fetchData = async () => {
 
   return {
     about,
-    classes,
+    categories,
     artSum
   };
 };

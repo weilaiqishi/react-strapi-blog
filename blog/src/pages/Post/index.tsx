@@ -28,7 +28,7 @@ const Post: React.FC = () => {
     <Layout
       title={data?.data[0].title}
       loading={loading}
-      classes={data?.data[0].classes}
+      categories={data?.data[0].categories}
       date={data?.data[0].date}
       isPost={true}
       rows={14}

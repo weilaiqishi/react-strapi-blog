@@ -28,7 +28,7 @@ const ArtDetail: React.FC = () => {
         })
       }
     : {
-        classes: query.class
+        categories: query.class
       };
 
   const { data, loading } = useRequest(

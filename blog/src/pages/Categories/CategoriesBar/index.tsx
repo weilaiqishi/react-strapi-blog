@@ -10,13 +10,13 @@ interface Props {
   onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
-const ClassBar: React.FC<Props> = ({ content, num, onClick, className }) => {
+const CategoriesBar: React.FC<Props> = ({ content, num, onClick, className }) => {
   return (
-    <div className={classNames(s.classBar, className)} onClick={onClick}>
+    <div className={classNames(s.categoriesBar, className)} onClick={onClick}>
       {content}
-      <div className={s.classNum}>{num}</div>
+      <div className={s.categoriesNum}>{num}</div>
     </div>
   );
 };
 
-export default ClassBar;
+export default CategoriesBar;

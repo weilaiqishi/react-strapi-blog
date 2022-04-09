@@ -19,7 +19,7 @@ interface Props {
   setNavShow?: Function;
   loading?: boolean;
   isPost?: boolean;
-  classes?: string;
+  categories?: string;
   date?: number;
   rows?: number;
 }
@@ -30,7 +30,7 @@ const Layout: React.FC<Props> = ({
   setNavShow,
   loading,
   children,
-  classes,
+  categories,
   date,
   isPost = false,
   rows
@@ -43,7 +43,7 @@ const Layout: React.FC<Props> = ({
       <PageTitle title={title} className={classNames({ [s.postTitle]: isPost })}>
         {isPost && (
           <div>
-            <span className={s.articleClass}>{classes}</span>
+            <span className={s.articleClass}>{categories}</span>
             <span className={s.articleDate}>
               {dayjs(date).format('YYYY-MM-DD HH:mm:ss')}
             </span>

@@ -3,7 +3,7 @@ export enum DB {
   About = 'about',
   Msg = 'allComments',
   Article = 'articles',
-  Class = 'classes',
+  Class = 'categories',
   Drafe = 'drafts',
   Gallery = 'galleries',
   Link = 'links',

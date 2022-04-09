@@ -12,14 +12,14 @@ export interface ClassType {
 
 interface Props {
   content?: string;
-  classes?: ClassType[];
+  categories?: ClassType[];
   artSum?: number;
 }
 
-const AboutSite: React.FC<Props> = ({ content, classes, artSum }) => {
+const AboutSite: React.FC<Props> = ({ content, categories, artSum }) => {
   return (
     <>
-      <Chart classes={classes} artSum={artSum} />
+      <Chart categories={categories} artSum={artSum} />
       <AboutText content={content} />
     </>
   );

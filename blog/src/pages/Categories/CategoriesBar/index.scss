@@ -1,7 +1,7 @@
 @import '../../../styles/base.scss';
 @import '../../../styles/style.scss';
 
-.classBar {
+.categoriesBar {
   position: relative;
   background-color: $themeColor1;
   height: 50px;
@@ -13,7 +13,7 @@
   @extend .hover;
   cursor: pointer;
 
-  .classNum {
+  .categoriesNum {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -26,12 +26,12 @@
 }
 
 @media screen and (max-width: 1240px) {
-  .classBar {
+  .categoriesBar {
     height: 40rem;
     border-radius: 10rem;
     font-size: 18rem;
 
-    .classNum {
+    .categoriesNum {
       right: 6rem;
       width: 28rem;
       font-size: 16rem;

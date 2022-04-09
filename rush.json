@@ -452,10 +452,6 @@
     //   "reviewCategory": "production"
     // },
     {
-      "packageName": "backend",
-      "projectFolder": "backend"
-    },
-    {
       "packageName": "blog",
       "projectFolder": "blog"
     }

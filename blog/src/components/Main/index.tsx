@@ -7,7 +7,7 @@ import s from './index.scss';
 
 const Home = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Home'));
 const Articles = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Articles'));
-const Classes = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Classes'));
+const Categories = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Categories'));
 const Tags = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Tags'));
 const Gallery = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Gallery'));
 const Img = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Img'));
@@ -29,7 +29,7 @@ const Main: React.FC = () => {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='articles' element={<Articles />} />
-              <Route path='classes' element={<Classes />} />
+              <Route path='categories' element={<Categories />} />
               <Route path='tags' element={<Tags />} />
               <Route path='gallery' element={<Gallery />} />
               <Route path='img' element={<Img />} />

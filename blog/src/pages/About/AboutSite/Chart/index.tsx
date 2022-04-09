@@ -14,7 +14,7 @@ import s from './index.scss';
 import { useOption } from './useOption';
 
 interface Props {
-  classes?: ClassType[];
+  categories?: ClassType[];
   artSum?: number;
   mode?: number;
 }
@@ -28,8 +28,8 @@ echarts.use([
   LabelLayout
 ]);
 
-const Chart: React.FC<Props> = ({ classes, artSum, mode }) => {
-  const option = useOption(classes!, artSum!, mode!);
+const Chart: React.FC<Props> = ({ categories, artSum, mode }) => {
+  const option = useOption(categories!, artSum!, mode!);
 
   return (
     <div className={s.box}>

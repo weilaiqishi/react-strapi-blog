@@ -10,14 +10,14 @@ export const useLinkList = () => {
   ];
   const secondNavArr = [
     { name: '找文章', to: '/articles' },
-    { name: '分类', to: '/classes' },
+    { name: '分类', to: '/categories' },
     { name: '标签', to: '/tags' }
   ];
 
   const mobileNavArr = [
     { name: '主页', to: '/' },
     { name: '文章', to: '/articles' },
-    { name: '分类', to: '/classes' },
+    { name: '分类', to: '/categories' },
     { name: '标签', to: '/tags' },
     { name: '图库', to: '/gallery' },
     { name: '说说', to: '/say' },

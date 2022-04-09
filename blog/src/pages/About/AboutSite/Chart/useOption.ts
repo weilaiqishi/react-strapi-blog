@@ -1,8 +1,8 @@
 import { ClassType } from '..';
 
-const getChartData = (classes: ClassType[], artSum: number) => {
+const getChartData = (categories: ClassType[], artSum: number) => {
   let sum = 0;
-  const res = classes.map(obj => {
+  const res = categories.map(obj => {
     sum += obj.count;
     return { name: obj.class, value: obj.count };
   });
@@ -15,8 +15,8 @@ const getChartData = (classes: ClassType[], artSum: number) => {
   return res;
 };
 
-export const useOption = (classes: ClassType[], artSum: number, mode: number) => {
-  const data = getChartData(classes!, artSum!);
+export const useOption = (categories: ClassType[], artSum: number, mode: number) => {
+  const data = getChartData(categories!, artSum!);
 
   const labelColor = ['rgb(255, 255, 255)', 'rgb(53, 53, 53)', 'rgb(53, 53, 53)'];
   const backgroundColor = ['rgb(22, 54, 51)', 'rgb(157, 222, 255)', 'rgb(194, 209, 223)'];

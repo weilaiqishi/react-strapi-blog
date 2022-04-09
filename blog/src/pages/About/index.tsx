@@ -32,7 +32,7 @@ const About: React.FC = () => {
       ) : (
         <AboutSite
           content={data?.about.data[0].content}
-          classes={data?.classes.data}
+          categories={data?.categories.data}
           artSum={data?.artSum.total}
         />
       )}
