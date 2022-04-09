@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "pageviews",
+  "info": {
+    "singularName": "pageview",
+    "pluralName": "pageviews",
+    "displayName": "pageview "
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "num": {
+      "type": "biginteger"
+    }
+  }
+}
