@@ -1,10 +1,10 @@
 import './pagination.custom.scss';
 
 import { Pagination } from 'antd';
+import { useLocalObservable, useObserver } from 'mobx-react'
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { setNavShow } from '@/redux/actions';
+import { rootStore } from '@/mobx';
 
 import s from './index.scss';
 
@@ -15,7 +15,6 @@ interface Props {
   setPage?: Function;
   scrollToTop?: number;
   autoScroll?: boolean;
-  setNavShow?: Function;
 }
 
 const MyPagination: React.FC<Props> = ({
@@ -24,31 +23,29 @@ const MyPagination: React.FC<Props> = ({
   total = 0,
   setPage,
   scrollToTop = 0,
-  autoScroll = false,
-  setNavShow
+  autoScroll = false
 }) => {
-  return (
+  const store = useLocalObservable(() => rootStore)
+  const P = () => <div id='myPagination' className={s.pageBox}>
+    <Pagination
+      current={current}
+      total={total}
+      defaultPageSize={defaultPageSize}
+      showSizeChanger={false}
+      showTitle={false}
+      onChange={(page: number) => {
+        setPage?.(page);
+        store.uiStore.setNavShow(false);
+        autoScroll && window.scrollTo(0, scrollToTop);
+      }}
+    />
+  </div>
+  return useObserver(() =>
     <>
-      {total > defaultPageSize ? (
-        <div id='myPagination' className={s.pageBox}>
-          <Pagination
-            current={current}
-            total={total}
-            defaultPageSize={defaultPageSize}
-            showSizeChanger={false}
-            showTitle={false}
-            onChange={(page: number) => {
-              setPage?.(page);
-              setNavShow?.(false);
-              autoScroll && window.scrollTo(0, scrollToTop);
-            }}
-          />
-        </div>
-      ) : null}
+      {/* {total > defaultPageSize ? P() : null} */}
+      <P />
     </>
   );
 };
 
-export default connect(() => ({}), {
-  setNavShow
-})(MyPagination);
+export default MyPagination

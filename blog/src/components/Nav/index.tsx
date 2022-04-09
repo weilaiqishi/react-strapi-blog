@@ -15,10 +15,12 @@ import {
 } from 'ahooks';
 import { Drawer } from 'antd';
 import classNames from 'classnames';
+import { useLocalObservable, useObserver } from 'mobx-react'
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { rootStore } from '@/mobx';
 import { setMode, setNavShow } from '@/redux/actions';
 import { storeState } from '@/redux/interface';
 import { blogAdminUrl } from '@/utils/constant';
@@ -28,15 +30,14 @@ import { useLinkList } from './config';
 import s from './index.scss';
 
 interface Props {
-  navShow?: boolean;
-  setNavShow?: Function;
   mode?: number;
   setMode?: Function;
 }
 
 const bodyStyle = window.document.getElementsByTagName('body')[0].style;
 
-const Nav: React.FC<Props> = ({ navShow, setNavShow, mode, setMode }) => {
+const Nav: React.FC<Props> = ({ mode, setMode }) => {
+  const store = useLocalObservable(() => rootStore)
   const navigate = useNavigate();
 
   // eslint-disable-next-line no-unused-vars
@@ -62,9 +63,9 @@ const Nav: React.FC<Props> = ({ navShow, setNavShow, mode, setMode }) => {
     }
   }, [mode]);
 
-  return (
+  return useObserver(() =>
     <>
-      <nav className={classNames(s.nav, { [s.hiddenNav]: !navShow })}>
+      <nav className={classNames(s.nav, { [s.hiddenNav]: !store.uiStore.navShow })}>
         <div className={s.navContent}>
           {/* 主页 */}
           <div className={s.homeBtn} onClick={() => navigate('/')}>
@@ -162,8 +163,7 @@ const Nav: React.FC<Props> = ({ navShow, setNavShow, mode, setMode }) => {
 
 export default connect(
   (state: storeState) => ({
-    navShow: state.navShow,
     mode: state.mode
   }),
-  { setNavShow, setMode }
+  { setMode }
 )(Nav);

@@ -1,36 +1,30 @@
 import { useRequest, useSafeState } from 'ahooks'
 import React from 'react'
-import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import * as api from '@/api'
 import MyPagination from '@/components/MyPagination'
-import { storeState } from '@/redux/interface'
-import { DB } from '@/utils/apis/dbConfig'
 import { homeSize, staleTime } from '@/utils/constant'
 
 import s from './index.scss';
 import PostCard from './PostCard';
 
-interface Props {
-  artSum?: number;
-}
 
-const Section: React.FC<Props> = ({ artSum }) => {
+const Section: React.FC = () => {
   const navigate = useNavigate();
   const [page, setPage] = useSafeState(1);
 
   const { data, loading } = useRequest(
-    () => api.strapiGETArticleList(),
+    () => api.strapiArticleList({ page, pageSize: homeSize }),
     {
       retryCount: 3,
       refreshDeps: [page],
-      cacheKey: `Section-${DB.Article}-${page}`,
+      cacheKey: `Section-articles-${page}`,
       staleTime
     }
   );
 
-  console.log(data)
+  console.log('Section-articles data -> ', data)
 
   return (
     <section className={s.section}>
@@ -48,7 +42,7 @@ const Section: React.FC<Props> = ({ artSum }) => {
       <MyPagination
         current={page}
         defaultPageSize={homeSize}
-        total={artSum}
+        total={data?.meta.pagination.total}
         setPage={setPage}
         autoScroll={true}
         scrollToTop={document.body.clientHeight - 80}
@@ -57,4 +51,4 @@ const Section: React.FC<Props> = ({ artSum }) => {
   );
 };
 
-export default connect((state: storeState) => ({ artSum: state.artSum }))(Section);
+export default Section

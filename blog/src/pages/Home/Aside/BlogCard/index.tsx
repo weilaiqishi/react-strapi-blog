@@ -13,10 +13,10 @@ const BlogCard: React.FC = () => {
     <Card className={s.card}>
       <p className={s.text}>
         {timeText}，<br />
-        我叫<span className={s.color}>飞鸟</span>，<br />
+        我叫<span className={s.color}>Kimeng</span>，<br />
         欢迎来到
         <br />
-        我的<span className={s.color}>个人博客</span>。
+        <span className={s.color}>我的博客</span>。
       </p>
       <img src={cardUrl} className={s.avatar} />
     </Card>
