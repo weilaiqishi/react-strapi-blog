@@ -1,24 +1,24 @@
-import useUrlState from '@ahooksjs/use-url-state';
-import { useRequest, useSafeState } from 'ahooks';
-import dayjs from 'dayjs';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import useUrlState from '@ahooksjs/use-url-state'
+import { useRequest, useSafeState } from 'ahooks'
+import dayjs from 'dayjs'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import DisplayBar from '@/components/DisplayBar';
-import Layout from '@/components/Layout';
-import MyPagination from '@/components/MyPagination';
-import { DB } from '@/utils/apis/dbConfig';
-import { getWhereOrderPageSum } from '@/utils/apis/getWhereOrderPageSum';
-import { db } from '@/utils/cloudBase';
-import { detailPostSize, staleTime } from '@/utils/constant';
+import DisplayBar from '@/components/DisplayBar'
+import Layout from '@/components/Layout'
+import MyPagination from '@/components/MyPagination'
+import { DB } from '@/utils/apis/dbConfig'
+import { getWhereOrderPageSum } from '@/utils/apis/getWhereOrderPageSum'
+import { db } from '@/utils/cloudBase'
+import { detailPostSize, staleTime } from '@/utils/constant'
 
-import { ArticleType } from '../constant';
+import { ArticleType } from '../constant'
 
 const ArtDetail: React.FC = () => {
-  const [query] = useUrlState();
-  const navigate = useNavigate();
+  const [query] = useUrlState()
+  const navigate = useNavigate()
 
-  const [page, setPage] = useSafeState(1);
+  const [page, setPage] = useSafeState(1)
 
   const where = query.tag
     ? {
@@ -29,7 +29,7 @@ const ArtDetail: React.FC = () => {
       }
     : {
         categories: query.class
-      };
+      }
 
   const { data, loading } = useRequest(
     () =>
@@ -46,7 +46,7 @@ const ArtDetail: React.FC = () => {
       cacheKey: `ArtDetail-${DB.Article}-${JSON.stringify(where)}-${page}`,
       staleTime
     }
-  );
+  )
 
   return (
     <Layout title={query.tag || query.class}>
@@ -68,7 +68,7 @@ const ArtDetail: React.FC = () => {
         scrollToTop={440}
       />
     </Layout>
-  );
-};
+  )
+}
 
-export default ArtDetail;
+export default ArtDetail

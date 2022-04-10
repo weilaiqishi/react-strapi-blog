@@ -1,22 +1,22 @@
-import { useRequest, useSafeState } from 'ahooks';
-import { message } from 'antd';
-import React from 'react';
+import { useRequest, useSafeState } from 'ahooks'
+import { message } from 'antd'
+import React from 'react'
 
-import Layout from '@/components/Layout';
-import MyPagination from '@/components/MyPagination';
-import { DB } from '@/utils/apis/dbConfig';
-import { getWhereOrderPageSum } from '@/utils/apis/getWhereOrderPageSum';
-import { detailPostSize, staleTime } from '@/utils/constant';
+import Layout from '@/components/Layout'
+import MyPagination from '@/components/MyPagination'
+import { DB } from '@/utils/apis/dbConfig'
+import { getWhereOrderPageSum } from '@/utils/apis/getWhereOrderPageSum'
+import { detailPostSize, staleTime } from '@/utils/constant'
 
-import { Title } from '../titleConfig';
-import ArtList from './ArtList';
-import Search from './Search';
+import { Title } from '../titleConfig'
+import ArtList from './ArtList'
+import Search from './Search'
 
 const Articles: React.FC = () => {
-  const [page, setPage] = useSafeState(1);
+  const [page, setPage] = useSafeState(1)
 
-  const [isReset, setIsReset] = useSafeState(false);
-  const [where, setWhere] = useSafeState(() => ({}));
+  const [isReset, setIsReset] = useSafeState(false)
+  const [where, setWhere] = useSafeState(() => ({}))
 
   const { data, loading, run } = useRequest(
     () =>
@@ -34,12 +34,12 @@ const Articles: React.FC = () => {
       staleTime,
       onSuccess: () => {
         if (isReset) {
-          setIsReset(false);
-          message.success('重置成功!');
+          setIsReset(false)
+          message.success('重置成功!')
         }
       }
     }
-  );
+  )
 
   return (
     <Layout title={Title.Articles}>
@@ -61,7 +61,7 @@ const Articles: React.FC = () => {
         scrollToTop={440}
       />
     </Layout>
-  );
-};
+  )
+}
 
-export default Articles;
+export default Articles

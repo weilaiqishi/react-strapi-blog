@@ -6,13 +6,13 @@ import * as api from '@/api'
 import MyPagination from '@/components/MyPagination'
 import { homeSize, staleTime } from '@/utils/constant'
 
-import s from './index.scss';
-import PostCard from './PostCard';
+import s from './index.scss'
+import PostCard from './PostCard'
 
 
 const Section: React.FC = () => {
-  const navigate = useNavigate();
-  const [page, setPage] = useSafeState(1);
+  const navigate = useNavigate()
+  const [page, setPage] = useSafeState(1)
 
   const { data, loading } = useRequest(
     () => api.strapiArticleList({ page, pageSize: homeSize }),
@@ -22,7 +22,7 @@ const Section: React.FC = () => {
       cacheKey: `Section-articles-${page}`,
       staleTime
     }
-  );
+  )
 
   console.log('Section-articles data -> ', data)
 
@@ -48,7 +48,7 @@ const Section: React.FC = () => {
         scrollToTop={document.body.clientHeight - 80}
       />
     </section>
-  );
-};
+  )
+}
 
 export default Section

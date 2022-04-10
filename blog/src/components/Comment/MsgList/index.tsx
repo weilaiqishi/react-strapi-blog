@@ -1,17 +1,17 @@
-import React from 'react';
+import React from 'react'
 
-import LayoutLoading from '@/components/LayoutLoading';
+import LayoutLoading from '@/components/LayoutLoading'
 
-import { MsgType } from '..';
-import s from './index.scss';
-import MsgItem from './MsgItem';
+import { MsgType } from '..'
+import s from './index.scss'
+import MsgItem from './MsgItem'
 
 interface Props {
-  msgs?: MsgType[];
-  replys?: MsgType[];
-  loading?: boolean;
-  replyRun?: Function;
-  title?: string;
+  msgs?: MsgType[]
+  replys?: MsgType[]
+  loading?: boolean
+  replyRun?: Function
+  title?: string
 }
 
 const MsgList: React.FC<Props> = ({ msgs, replys, loading, replyRun, title }) => {
@@ -53,11 +53,11 @@ const MsgList: React.FC<Props> = ({ msgs, replys, loading, replyRun, title }) =>
                   />
                 ))}
             </div>
-          );
+          )
         })
       )}
     </>
-  );
-};
+  )
+}
 
-export default MsgList;
+export default MsgList

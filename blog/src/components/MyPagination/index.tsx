@@ -1,20 +1,20 @@
-import './pagination.custom.scss';
+import './pagination.custom.scss'
 
-import { Pagination } from 'antd';
+import { Pagination } from 'antd'
 import { useLocalObservable, useObserver } from 'mobx-react'
-import React from 'react';
+import React from 'react'
 
-import { rootStore } from '@/mobx';
+import { rootStore } from '@/mobx'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  current?: number;
-  defaultPageSize?: number;
-  total?: number;
-  setPage?: Function;
-  scrollToTop?: number;
-  autoScroll?: boolean;
+  current?: number
+  defaultPageSize?: number
+  total?: number
+  setPage?: Function
+  scrollToTop?: number
+  autoScroll?: boolean
 }
 
 const MyPagination: React.FC<Props> = ({
@@ -34,9 +34,9 @@ const MyPagination: React.FC<Props> = ({
       showSizeChanger={false}
       showTitle={false}
       onChange={(page: number) => {
-        setPage?.(page);
-        store.uiStore.setNavShow(false);
-        autoScroll && window.scrollTo(0, scrollToTop);
+        setPage?.(page)
+        store.uiStore.setNavShow(false)
+        autoScroll && window.scrollTo(0, scrollToTop)
       }}
     />
   </div>
@@ -45,7 +45,7 @@ const MyPagination: React.FC<Props> = ({
       {/* {total > defaultPageSize ? P() : null} */}
       <P />
     </>
-  );
-};
+  )
+}
 
 export default MyPagination

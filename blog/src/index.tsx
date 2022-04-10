@@ -10,8 +10,6 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import store from '@/redux/store'
-
 import { graphqlClient } from './api'
 import App from './App'
 
@@ -20,12 +18,10 @@ if (module?.hot) {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <ApolloProvider client={graphqlClient}>
-        <App />
-      </ApolloProvider>
-    </BrowserRouter>
-  </Provider>,
+  <BrowserRouter>
+    <ApolloProvider client={graphqlClient}>
+      <App />
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );

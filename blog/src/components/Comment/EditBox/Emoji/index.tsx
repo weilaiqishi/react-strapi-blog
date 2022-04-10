@@ -1,21 +1,21 @@
-import './index.custom.scss';
+import './index.custom.scss'
 
-import { Popover } from 'antd';
-import classNames from 'classnames';
-import React from 'react';
+import { Popover } from 'antd'
+import classNames from 'classnames'
+import React from 'react'
 
-import EmojiItem from './EmojiItem';
-import s from './index.scss';
-import { useEmoji } from './useEmoji';
+import EmojiItem from './EmojiItem'
+import s from './index.scss'
+import { useEmoji } from './useEmoji'
 
 interface EmojiType {
-  className: string;
-  emojiStr: string[];
-  show: string;
+  className: string
+  emojiStr: string[]
+  show: string
 }
 
 const Emoji: React.FC = () => {
-  const { emojiPeople, emojiNature, emojiSymbol, emojiFood } = useEmoji();
+  const { emojiPeople, emojiNature, emojiSymbol, emojiFood } = useEmoji()
 
   const emojiData: EmojiType[] = [
     {
@@ -38,7 +38,7 @@ const Emoji: React.FC = () => {
       emojiStr: emojiFood,
       show: '🍎'
     }
-  ];
+  ]
 
   return (
     <>
@@ -55,7 +55,7 @@ const Emoji: React.FC = () => {
         </Popover>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default Emoji;
+export default Emoji

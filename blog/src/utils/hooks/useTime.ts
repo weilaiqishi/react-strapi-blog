@@ -1,7 +1,7 @@
-// import { useMount, useSafeState } from 'ahooks';
+// import { useMount, useSafeState } from 'ahooks'
 
 export const useTime = () => {
-  const hour = new Date().getHours();
+  const hour = new Date().getHours()
   const timeText =
     hour < 6
       ? '凌晨好'
@@ -15,7 +15,7 @@ export const useTime = () => {
       ? '下午好'
       : hour < 19
       ? '傍晚好'
-      : '晚上好';
+      : '晚上好'
 
-  return { timeText };
-};
+  return { timeText }
+}

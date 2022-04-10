@@ -1,33 +1,35 @@
 import { useMount, useSafeState, useTitle } from 'ahooks'
+import { useLocalObservable, useObserver } from 'mobx-react'
 import React from 'react'
 import { connect } from 'react-redux'
 
 import PageTitle from '@/components/PageTitle'
-import { setNavShow } from '@/redux/actions'
+import { rootStore } from '@/mobx'
 import { siteTitle } from '@/utils/constant'
 import useTop from '@/utils/hooks/useTop'
 import jinrishici from '@/utils/jinrishici'
 
-import Aside from './Aside';
-import s from './index.scss';
-import Section from './Section';
+import Aside from './Aside'
+import s from './index.scss'
+import Section from './Section'
 
 interface Props {
-  setNavShow?: Function;
+  setNavShow?: Function
 }
 
 
-const Home: React.FC<Props> = ({ setNavShow }) => {
+const Home: React.FC<Props> = () => {
+  const store = useLocalObservable(() => rootStore)
   useTitle(siteTitle)
-  setNavShow && useTop(setNavShow)
+  useTop(store.uiStore.setNavShow.bind(store))
 
   const [poem, setPoem] = useSafeState('')
   useMount(() => {
     jinrishici(
       res => setPoem(res.data.content),
       err => { console.log(`jinrishici error -> ` + err) }
-    );
-  });
+    )
+  })
 
   return (
     <>
@@ -37,7 +39,7 @@ const Home: React.FC<Props> = ({ setNavShow }) => {
         <Aside />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default connect(() => ({}), { setNavShow })(Home)
+export default Home

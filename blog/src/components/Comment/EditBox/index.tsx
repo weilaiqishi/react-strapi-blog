@@ -1,5 +1,5 @@
-import useUrlState from '@ahooksjs/use-url-state';
-import { UserOutlined } from '@ant-design/icons';
+import useUrlState from '@ahooksjs/use-url-state'
+import { UserOutlined } from '@ant-design/icons'
 import {
   useBoolean,
   useKeyPress,
@@ -8,20 +8,19 @@ import {
   useMount,
   useRequest,
   useSafeState
-} from 'ahooks';
-import { message } from 'antd';
-import classNames from 'classnames';
-import PubSub from 'pubsub-js';
-import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import sanitizeHtml from 'sanitize-html';
+} from 'ahooks'
+import { message } from 'antd'
+import classNames from 'classnames'
+import { useLocalObservable, useObserver } from 'mobx-react'
+import PubSub from 'pubsub-js'
+import React, { useEffect, useRef } from 'react'
+import sanitizeHtml from 'sanitize-html'
 
-import { setAvatar, setEmail, setLink, setName } from '@/redux/actions';
-import { storeState } from '@/redux/interface';
-import { axiosAPI } from '@/utils/apis/axios';
-import { DB } from '@/utils/apis/dbConfig';
-import { setData } from '@/utils/apis/setData';
-import { auth } from '@/utils/cloudBase';
+import { rootStore } from '@/mobx'
+import { axiosAPI } from '@/utils/apis/axios'
+import { DB } from '@/utils/apis/dbConfig'
+import { setData } from '@/utils/apis/setData'
+import { auth } from '@/utils/cloudBase'
 import {
   adminUid,
   avatarArrLen,
@@ -32,47 +31,31 @@ import {
   myLink,
   myName,
   QQ
-} from '@/utils/constant';
-import { getRandomNum } from '@/utils/function';
-import { ADD_EMOJI } from '@/utils/pubsub';
+} from '@/utils/constant'
+import { getRandomNum } from '@/utils/function'
+import { ADD_EMOJI } from '@/utils/pubsub'
 
-import AdminBox from './AdminBox';
-import Emoji from './Emoji';
-import s from './index.scss';
-import PreShow from './PreShow';
+import AdminBox from './AdminBox'
+import Emoji from './Emoji'
+import s from './index.scss'
+import PreShow from './PreShow'
 
 interface Props {
-  msgRun?: Function;
-  replyRun?: Function;
-  isReply?: boolean;
-  name?: string;
-  link?: string;
-  email?: string;
-  avatar?: string;
-  setAvatar?: Function;
-  setEmail?: Function;
-  setLink?: Function;
-  setName?: Function;
-  closeReply?: Function;
-  className?: string;
-  replyName?: string;
-  replyId?: string;
-  title?: string;
-  ownerEmail?: string;
+  msgRun?: Function
+  replyRun?: Function
+  isReply?: boolean
+  closeReply?: Function
+  className?: string
+  replyName?: string
+  replyId?: string
+  title?: string
+  ownerEmail?: string
 }
 
 const EditBox: React.FC<Props> = ({
   msgRun,
   replyRun,
   isReply = false,
-  name,
-  link,
-  email,
-  avatar,
-  setAvatar,
-  setEmail,
-  setLink,
-  setName,
   closeReply,
   replyName,
   replyId,
@@ -80,34 +63,35 @@ const EditBox: React.FC<Props> = ({
   title,
   ownerEmail
 }) => {
-  const [search] = useUrlState();
+  const store = useLocalObservable(() => rootStore)
+  const [search] = useUrlState()
 
-  const nameRef = useRef(null);
+  const nameRef = useRef(null)
 
-  const [showAdmin, setShowAdmin] = useSafeState(false);
-  const [showPre, { toggle: togglePre, setFalse: closePre }] = useBoolean(false);
+  const [showAdmin, setShowAdmin] = useSafeState(false)
+  const [showPre, { toggle: togglePre, setFalse: closePre }] = useBoolean(false)
 
-  const [text, setText] = useSafeState('');
+  const [text, setText] = useSafeState('')
 
-  const [localName, setLocalName] = useLocalStorageState('name');
-  const [localEmail, setLocalEmail] = useLocalStorageState('email');
-  const [localLink, setLocalLink] = useLocalStorageState('link');
-  const [localAvatar, setLocalAvatar] = useLocalStorageState('avatar');
+  const [localName, setLocalName] = useLocalStorageState('name')
+  const [localEmail, setLocalEmail] = useLocalStorageState('email')
+  const [localLink, setLocalLink] = useLocalStorageState('link')
+  const [localAvatar, setLocalAvatar] = useLocalStorageState('avatar')
 
   const validateConfig = {
     name: {
       check: /^[\u4e00-\u9fa5_a-zA-Z0-9]{2,8}$/,
-      content: name,
+      content: store.uiStore.name,
       errText: '昵称仅限中文、数字、字母，长度2~8！'
     },
     email: {
       check: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
-      content: email,
+      content: store.uiStore.email,
       errText: '请输入正确的邮箱地址！'
     },
     link: {
       check: /^$|^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/,
-      content: link,
+      content: store.uiStore.link,
       errText: '请输入正确的url，或不填！'
     },
     text: {
@@ -115,126 +99,126 @@ const EditBox: React.FC<Props> = ({
       content: text,
       errText: '请输入内容再发布~'
     }
-  };
+  }
 
   const validate = useMemoizedFn(() => {
     Object.keys(validateConfig).forEach(item => {
       const { check, errText, content } =
-        validateConfig[item as keyof typeof validateConfig];
+        validateConfig[item as keyof typeof validateConfig]
       if (!check.test(content!)) {
-        message.error(errText);
-        throw new Error('breakForEach');
+        message.error(errText)
+        throw new Error('breakForEach')
       }
-    });
-  });
+    })
+  })
 
   const checkAdmin = useMemoizedFn(() => {
     if (
       !adminLogined() &&
-      (name === myName ||
-        name === QQ ||
-        email === myEmail ||
-        link?.indexOf(myLink) !== -1)
+      (store.uiStore.name === myName ||
+        store.uiStore.name === QQ ||
+        store.uiStore.email === myEmail ||
+        store.uiStore.link?.indexOf(myLink) !== -1)
     ) {
-      message.warning('未登录不可以使用管理员账户（昵称、邮箱、网址）哦~');
-      throw new Error('Not Admin');
+      message.warning('未登录不可以使用管理员账户（昵称、邮箱、网址）哦~')
+      throw new Error('Not Admin')
     }
-  });
+  })
 
   const submit = useMemoizedFn(async () => {
     try {
-      validate();
-      checkAdmin();
+      validate()
+      checkAdmin()
 
       const config = {
         DBName: DB.Msg,
-        name: sanitizeHtml(name!),
-        email: sanitizeHtml(email!),
-        link: sanitizeHtml(link!),
+        name: sanitizeHtml(store.uiStore.name!),
+        email: sanitizeHtml(store.uiStore.email!),
+        link: sanitizeHtml(store.uiStore.link!),
         content: sanitizeHtml(text),
         date: new Date().getTime(),
-        avatar: avatar
-          ? avatar
+        avatar: store.uiStore.avatar
+          ? store.uiStore.avatar
           : defaultCommentAvatarArr[getRandomNum(0, avatarArrLen - 1)],
         postTitle: search.title || '',
         replyId: replyId || ''
-      };
+      }
 
-      const isTrue = await setData(config);
+      const isTrue = await setData(config)
 
       if (isTrue) {
         if (isReply) {
-          closeReply?.();
-          replyRun?.();
-          email !== ownerEmail && informUser();
-          informAdminReply();
+          closeReply?.()
+          replyRun?.()
+          store.uiStore.email !== ownerEmail && informUser()
+          informAdminReply()
         } else {
-          msgRun?.();
-          informAdminMsg();
+          msgRun?.()
+          informAdminMsg()
         }
       } else {
-        message.error('发布失败，请重试！');
+        message.error('发布失败，请重试！')
       }
-    } catch {}
-  });
+    } catch { }
+  })
 
   const adminLogined = useMemoizedFn(() => {
-    if (!auth.hasLoginState()) return false;
-    if (auth.currentUser?.uid === adminUid) return true;
-    return false;
-  });
+    if (!auth.hasLoginState()) return false
+    if (auth.currentUser?.uid === adminUid) return true
+    return false
+  })
 
   useMount(() => {
     if (adminLogined()) {
       // 管理员已登录
-      setName?.(myName);
-      setEmail?.(myEmail);
-      setLink?.(myLink);
-      setAvatar?.(myAvatar70);
-      return;
+      store.uiStore.setName(myName)
+      store.uiStore.setEmail(myEmail)
+      store.uiStore.setLink(myLink)
+      store.uiStore.setAvatar(myAvatar70)
+      return
     }
-    localName && localName !== myName && setName?.(localName);
-    localEmail && localEmail !== myEmail && setEmail?.(localEmail);
-    localLink && localLink.indexOf(myLink) === -1 && setLink?.(localLink);
-    localAvatar && setAvatar?.(localAvatar);
-  });
+    localName && localName !== myName && store.uiStore.setName(localName)
+    localEmail && localEmail !== myEmail && store.uiStore.setEmail(localEmail)
+    localLink && localLink.indexOf(myLink) === -1 && store.uiStore.setLink(localLink)
+    localAvatar && store.uiStore.setAvatar(localAvatar)
+  })
 
   const handleName = useMemoizedFn(() => {
-    const regQQ = /[1-9][0-9]{4,11}/;
-    if (name === 'admin') {
-      setShowAdmin(true);
-      setName?.('');
-      return;
+    const regQQ = /[1-9][0-9]{4,11}/
+    if (store.uiStore.name === 'admin') {
+      setShowAdmin(true)
+      store.uiStore.setName('')
+      return
     }
-    if (!adminLogined() && (name === myName || name === QQ)) {
-      message.warning('未登录不可以使用管理员账户哦~');
-      setName?.('');
-      return;
+    if (!adminLogined() && (store.uiStore.name === myName || store.uiStore.name === QQ)) {
+      message.warning('未登录不可以使用管理员账户哦~')
+      store.uiStore.setName('')
+      return
     }
     if (regQQ.test(name!)) {
-      const avatarUrl = `https://q1.qlogo.cn/g?b=qq&nk=${name}&s=100`;
-      const QQEmail = `${name}@qq.com`;
-      setEmail?.(QQEmail);
-      setAvatar?.(avatarUrl);
-      setLocalEmail(QQEmail);
-      setLocalAvatar(avatarUrl);
-      setName?.('');
-      return;
+      const avatarUrl = `https://q1.qlogo.cn/g?b=qq&nk=${name}&s=100`
+      const QQEmail = `${name}@qq.com`
+      store.uiStore.setEmail(QQEmail)
+      store.uiStore.setAvatar(avatarUrl)
+      setLocalEmail(QQEmail)
+      setLocalAvatar(avatarUrl)
+      store.uiStore.setName('')
+      return
     }
-    setLocalName(name);
-  });
+    setLocalName(name)
+  })
 
   useKeyPress(13, handleName, {
     target: nameRef
-  });
+  })
 
   const openPreShow = useMemoizedFn(() => {
     if (!showPre && !text) {
-      message.info('请写点什么再预览~');
-      return;
+      message.info('请写点什么再预览~')
+      return
     }
-    togglePre();
-  });
+    togglePre()
+  })
 
   const { run: informAdminMsg } = useRequest(
     () =>
@@ -248,11 +232,11 @@ const EditBox: React.FC<Props> = ({
     {
       manual: true,
       onSuccess: () => {
-        setText('');
-        message.success(`发布${search.title ? '评论' : '留言'}成功！`);
+        setText('')
+        message.success(`发布${search.title ? '评论' : '留言'}成功！`)
       }
     }
-  );
+  )
 
   const { run: informAdminReply } = useRequest(
     () =>
@@ -267,11 +251,11 @@ const EditBox: React.FC<Props> = ({
     {
       manual: true,
       onSuccess: () => {
-        setText('');
-        message.success('已通知站长！');
+        setText('')
+        message.success('已通知站长！')
       }
     }
-  );
+  )
 
   const { run: informUser } = useRequest(
     () =>
@@ -287,19 +271,19 @@ const EditBox: React.FC<Props> = ({
     {
       manual: true,
       onSuccess: () => {
-        message.success(`已通知${search.title ? '评论' : '留言'}者！`);
+        message.success(`已通知${search.title ? '评论' : '留言'}者！`)
       }
     }
-  );
+  )
 
   useEffect(() => {
     const subEmoji = PubSub.subscribe(ADD_EMOJI, (_, emoji) => {
-      setText(text => `${text}${emoji}`);
-    });
+      setText(text => `${text}${emoji}`)
+    })
     return () => {
-      PubSub.unsubscribe(subEmoji);
-    };
-  }, []);
+      PubSub.unsubscribe(subEmoji)
+    }
+  }, [])
 
   return (
     <div className={classNames(s.editBox, className)}>
@@ -312,16 +296,16 @@ const EditBox: React.FC<Props> = ({
         <AdminBox
           showAdmin={showAdmin}
           setShowAdmin={setShowAdmin}
-          setName={setName}
-          setEmail={setEmail}
-          setLink={setLink}
-          setAvatar={setAvatar}
+          setName={store.uiStore.setName.bind(store)}
+          setEmail={store.uiStore.setEmail.bind(store)}
+          setLink={store.uiStore.setLink.bind(store)}
+          setAvatar={store.uiStore.setAvatar.bind(store)}
         />
 
         <div className={s.avatarBoxCol}>
           <div className={s.avatarBox}>
-            {avatar ? (
-              <img src={avatar} className={s.editAvatar} />
+            {store.uiStore.avatar ? (
+              <img src={store.uiStore.avatar} className={s.editAvatar} />
             ) : (
               <UserOutlined className={s.noAvatar} />
             )}
@@ -336,8 +320,8 @@ const EditBox: React.FC<Props> = ({
                 type='text'
                 className={s.inputValue}
                 placeholder='QQ号'
-                value={name}
-                onChange={e => setName?.(e.target.value)}
+                value={store.uiStore.name}
+                onChange={e => store.uiStore.setName(e.target.value)}
                 onBlur={handleName}
               />
             </div>
@@ -347,8 +331,8 @@ const EditBox: React.FC<Props> = ({
                 type='text'
                 className={s.inputValue}
                 placeholder='必填'
-                value={email}
-                onChange={e => setEmail?.(e.target.value)}
+                value={store.uiStore.email}
+                onChange={e => store.uiStore.setEmail(e.target.value)}
                 onBlur={e => setLocalEmail(e.target.value)}
               />
             </div>
@@ -358,8 +342,8 @@ const EditBox: React.FC<Props> = ({
                 type='text'
                 className={s.inputValue}
                 placeholder='选填'
-                value={link}
-                onChange={e => setLink?.(e.target.value)}
+                value={store.uiStore.link}
+                onChange={e => store.uiStore.setLink(e.target.value)}
                 onBlur={e => setLocalLink(e.target.value)}
               />
             </div>
@@ -370,7 +354,7 @@ const EditBox: React.FC<Props> = ({
               className={s.textarea}
               value={text}
               onChange={e => setText(e.target.value)}
-              placeholder='写点什么吗？支持markdown格式！&#10;可以在「昵称」处填写QQ号，自动获取「头像」和「QQ邮箱」！'
+              placeholder='写点什么吗？支持markdown格式！&#10可以在「昵称」处填写QQ号，自动获取「头像」和「QQ邮箱」！'
             />
           </div>
           <div className={s.commentBtns}>
@@ -391,20 +375,7 @@ const EditBox: React.FC<Props> = ({
       </div>
       {showPre && <PreShow closePre={closePre} content={text} />}
     </div>
-  );
-};
+  )
+}
 
-export default connect(
-  (state: storeState) => ({
-    name: state.name,
-    link: state.link,
-    email: state.email,
-    avatar: state.avatar
-  }),
-  {
-    setAvatar,
-    setEmail,
-    setLink,
-    setName
-  }
-)(EditBox);
+export default EditBox

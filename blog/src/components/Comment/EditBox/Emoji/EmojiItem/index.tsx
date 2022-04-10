@@ -1,12 +1,12 @@
-import PubSub from 'pubsub-js';
-import React from 'react';
+import PubSub from 'pubsub-js'
+import React from 'react'
 
-import { ADD_EMOJI } from '@/utils/pubsub';
+import { ADD_EMOJI } from '@/utils/pubsub'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  emojiStr: string[];
+  emojiStr: string[]
 }
 
 const EmojiItem: React.FC<Props> = ({ emojiStr }) => {
@@ -22,7 +22,7 @@ const EmojiItem: React.FC<Props> = ({ emojiStr }) => {
         </div>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default EmojiItem;
+export default EmojiItem

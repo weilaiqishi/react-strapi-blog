@@ -1,16 +1,16 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  cover?: string;
-  title?: string;
-  descr?: string;
+  cover?: string
+  title?: string
+  descr?: string
 }
 
 const ImgCard: React.FC<Props> = ({ cover, title, descr }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div
@@ -22,7 +22,7 @@ const ImgCard: React.FC<Props> = ({ cover, title, descr }) => {
       <div className={s.descr}>{descr}</div>
       <div className={s.mask} />
     </div>
-  );
-};
+  )
+}
 
-export default ImgCard;
+export default ImgCard

@@ -1,28 +1,28 @@
-import useUrlState from '@ahooksjs/use-url-state';
-import { useRequest } from 'ahooks';
-import React from 'react';
+import useUrlState from '@ahooksjs/use-url-state'
+import { useRequest } from 'ahooks'
+import React from 'react'
 
-import Comment from '@/components/Comment';
-import Layout from '@/components/Layout';
-import MarkDown from '@/components/MarkDown';
-import { DB } from '@/utils/apis/dbConfig';
-import { getWhereData } from '@/utils/apis/getWhereData';
-import { staleTime } from '@/utils/constant';
+import Comment from '@/components/Comment'
+import Layout from '@/components/Layout'
+import MarkDown from '@/components/MarkDown'
+import { DB } from '@/utils/apis/dbConfig'
+import { getWhereData } from '@/utils/apis/getWhereData'
+import { staleTime } from '@/utils/constant'
 
-import CopyRight from './CopyRight';
-import s from './index.scss';
-import Navbar from './Navbar';
-import PostTags from './PostTags';
+import CopyRight from './CopyRight'
+import s from './index.scss'
+import Navbar from './Navbar'
+import PostTags from './PostTags'
 
 const Post: React.FC = () => {
-  const [search] = useUrlState();
+  const [search] = useUrlState()
 
   const { data, loading } = useRequest(getWhereData, {
     defaultParams: [DB.Article, { titleEng: search.title }],
     retryCount: 3,
     cacheKey: `Post-${DB.Article}-${search.title}`,
     staleTime
-  });
+  })
 
   return (
     <Layout
@@ -39,7 +39,7 @@ const Post: React.FC = () => {
       <Comment titleEng={search.title} title={data?.data[0].title} />
       <Navbar content={data?.data[0].content} />
     </Layout>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

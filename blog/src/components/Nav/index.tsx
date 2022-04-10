@@ -1,4 +1,4 @@
-import './index.custom.scss';
+import './index.custom.scss'
 
 import {
   BgColorsOutlined,
@@ -6,62 +6,58 @@ import {
   HomeOutlined,
   MenuOutlined,
   SettingOutlined
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 import {
   useEventListener,
   useLocalStorageState,
   useSafeState,
   useUpdateEffect
-} from 'ahooks';
-import { Drawer } from 'antd';
-import classNames from 'classnames';
+} from 'ahooks'
+import { Drawer } from 'antd'
+import classNames from 'classnames'
 import { useLocalObservable, useObserver } from 'mobx-react'
-import React from 'react';
-import { connect } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
-import { rootStore } from '@/mobx';
-import { setMode, setNavShow } from '@/redux/actions';
-import { storeState } from '@/redux/interface';
-import { blogAdminUrl } from '@/utils/constant';
-import { modeMap, modeMapArr } from '@/utils/modeMap';
+import { rootStore } from '@/mobx'
+import { blogAdminUrl } from '@/utils/constant'
+import { modeMap, modeMapArr } from '@/utils/modeMap'
 
-import { useLinkList } from './config';
-import s from './index.scss';
+import { useLinkList } from './config'
+import s from './index.scss'
 
 interface Props {
-  mode?: number;
-  setMode?: Function;
+  mode?: number
+  setMode?: Function
 }
 
-const bodyStyle = window.document.getElementsByTagName('body')[0].style;
+const bodyStyle = window.document.getElementsByTagName('body')[0].style
 
-const Nav: React.FC<Props> = ({ mode, setMode }) => {
+const Nav: React.FC<Props> = () => {
   const store = useLocalObservable(() => rootStore)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  // eslint-disable-next-line no-unused-vars
-  const [_, setLocalMode] = useLocalStorageState('localMode');
-  const { navArr, secondNavArr, mobileNavArr } = useLinkList();
-  const [visible, setVisible] = useSafeState(false);
+  const [localMode, setLocalMode] = useLocalStorageState('localMode')
+  const { navArr, secondNavArr, mobileNavArr } = useLinkList()
+  const [visible, setVisible] = useSafeState(false)
 
-  const modeOptions = ['rgb(19, 38, 36)', 'rgb(110, 180, 214)', 'rgb(171, 194, 208)'];
+  const modeOptions = ['rgb(19, 38, 36)', 'rgb(110, 180, 214)', 'rgb(171, 194, 208)']
 
   useEventListener(
     'mousewheel',
     event => {
-      event = event || window.event;
-      setNavShow!(event.wheelDeltaY > 0);
+      event = event || window.event
+      store.uiStore.setNavShow(event.wheelDeltaY > 0)
     },
     { target: document.body }
-  );
+  )
 
   useUpdateEffect(() => {
-    setLocalMode(mode);
+    setLocalMode(store.uiStore.mode)
     for (const type of modeMapArr) {
-      bodyStyle.setProperty(type, modeMap[type as keyof typeof modeMap][mode!]);
+      bodyStyle.setProperty(type, modeMap[type as keyof typeof modeMap][store.uiStore.mode])
     }
-  }, [mode]);
+  }, [store.uiStore.mode])
 
   return useObserver(() =>
     <>
@@ -72,11 +68,6 @@ const Nav: React.FC<Props> = ({ mode, setMode }) => {
             <HomeOutlined />
           </div>
 
-          {/* 后台管理 */}
-          <a className={s.adminBtn} href={blogAdminUrl} target='_blank' rel='noreferrer'>
-            <SettingOutlined />
-          </a>
-
           {/* 黑暗模式切换 */}
           <div className={s.modeBtn}>
             <BgColorsOutlined />
@@ -86,9 +77,9 @@ const Nav: React.FC<Props> = ({ mode, setMode }) => {
                   key={index}
                   style={{ backgroundColor }}
                   className={classNames(s.modeItem, s[`modeItem${index}`])}
-                  onClick={() => setMode?.(index)}
+                  onClick={() => store.uiStore.setMode(index)}
                 >
-                  {mode === index && <CheckOutlined />}
+                  {store.uiStore.mode === index && <CheckOutlined />}
                 </div>
               ))}
             </div>
@@ -150,20 +141,15 @@ const Nav: React.FC<Props> = ({ mode, setMode }) => {
               key={index}
               style={{ backgroundColor }}
               className={classNames(s.modeItem, s[`modeItem${index}`])}
-              onClick={() => setMode?.(index)}
+              onClick={() => store.uiStore.setMode(index)}
             >
-              {mode === index && <CheckOutlined />}
+              {store.uiStore.mode === index && <CheckOutlined />}
             </div>
           ))}
         </div>
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default connect(
-  (state: storeState) => ({
-    mode: state.mode
-  }),
-  { setMode }
-)(Nav);
+export default Nav

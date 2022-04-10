@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import { useTime } from '@/utils/hooks/useTime';
+import { useTime } from '@/utils/hooks/useTime'
 
-import s from './index.scss';
-import { useSite } from './useSite';
+import s from './index.scss'
+import { useSite } from './useSite'
 
 const MsgInfo: React.FC = () => {
-  const { timeText } = useTime();
-  const { mySite } = useSite();
+  const { timeText } = useTime()
+  const { mySite } = useSite()
 
   return (
     <>
@@ -24,8 +24,8 @@ const MsgInfo: React.FC = () => {
         {mySite.map(
           (
             item: {
-              key: string;
-              value: string;
+              key: string
+              value: string
             },
             index
           ) => (
@@ -37,7 +37,7 @@ const MsgInfo: React.FC = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default MsgInfo;
+export default MsgInfo

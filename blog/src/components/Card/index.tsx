@@ -1,14 +1,14 @@
-import { Skeleton } from 'antd';
-import classNames from 'classnames';
-import React, { MouseEventHandler } from 'react';
+import { Skeleton } from 'antd'
+import classNames from 'classnames'
+import React, { MouseEventHandler } from 'react'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  className?: string;
-  loading?: boolean;
-  isStatic?: boolean;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  className?: string
+  loading?: boolean
+  isStatic?: boolean
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const Card: React.FC<Props> = ({ children, className, loading, isStatic, onClick }) => {
@@ -24,7 +24,7 @@ const Card: React.FC<Props> = ({ children, className, loading, isStatic, onClick
     >
       {loading ? <Skeleton paragraph={{ rows: 1 }} /> : children}
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

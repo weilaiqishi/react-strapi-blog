@@ -2,35 +2,35 @@ import './global.custom.scss';
 
 import { useLocalStorageState, useMount } from 'ahooks';
 import classNames from 'classnames';
+import { useLocalObservable, useObserver } from 'mobx-react'
 import React from 'react';
-import { connect } from 'react-redux';
 
 import Footer from '@/components/Footer';
 import Main from '@/components/Main';
 import Nav from '@/components/Nav';
+import { rootStore } from '@/mobx';
 
 import s from './App.scss';
 import BackToTop from './components/BackToTop';
-import { setMode } from './redux/actions';
-import { storeState } from './redux/interface';
 
 interface Props {
   mode?: number;
   setMode?: Function;
 }
 
-const App: React.FC<Props> = ({ mode, setMode }) => {
+const App: React.FC<Props> = () => {
+  const store = useLocalObservable(() => rootStore)
   const bgClasses = [s.bg0, s.bg1, s.bg2];
   const [localMode] = useLocalStorageState('localMode');
 
   useMount(() => {
     if (localMode !== undefined) {
-      setMode?.(localMode);
+      store.uiStore.setMode(localMode);
     }
   });
 
-  return (
-    <div className={classNames(s.AppBox, bgClasses[mode!])}>
+  return useObserver(() =>
+    <div className={classNames(s.AppBox, bgClasses[store.uiStore.mode])}>
       <Nav />
       <Main />
       <Footer />
@@ -39,9 +39,4 @@ const App: React.FC<Props> = ({ mode, setMode }) => {
   );
 };
 
-export default connect(
-  (state: storeState) => ({
-    mode: state.mode
-  }),
-  { setMode }
-)(App);
+export default App

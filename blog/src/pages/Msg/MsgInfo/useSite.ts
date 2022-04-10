@@ -1,4 +1,4 @@
-import { myAvatar, myDescr, myLink, myName } from '@/utils/constant';
+import { myAvatar, myDescr, myLink, myName } from '@/utils/constant'
 
 export const useSite = () => {
   const mySite = [
@@ -18,7 +18,7 @@ export const useSite = () => {
       key: 'descr',
       value: myDescr
     }
-  ];
+  ]
 
-  return { mySite };
-};
+  return { mySite }
+}

@@ -1,25 +1,25 @@
-import { ClassType } from '..';
+import { ClassType } from '..'
 
 const getChartData = (categories: ClassType[], artSum: number) => {
-  let sum = 0;
+  let sum = 0
   const res = categories.map(obj => {
-    sum += obj.count;
-    return { name: obj.class, value: obj.count };
-  });
-  const leave = artSum - sum;
+    sum += obj.count
+    return { name: obj.class, value: obj.count }
+  })
+  const leave = artSum - sum
   leave &&
     res.push({
       name: '未分类',
       value: leave
-    });
-  return res;
-};
+    })
+  return res
+}
 
 export const useOption = (categories: ClassType[], artSum: number, mode: number) => {
-  const data = getChartData(categories!, artSum!);
+  const data = getChartData(categories!, artSum!)
 
-  const labelColor = ['rgb(255, 255, 255)', 'rgb(53, 53, 53)', 'rgb(53, 53, 53)'];
-  const backgroundColor = ['rgb(22, 54, 51)', 'rgb(157, 222, 255)', 'rgb(194, 209, 223)'];
+  const labelColor = ['rgb(255, 255, 255)', 'rgb(53, 53, 53)', 'rgb(53, 53, 53)']
+  const backgroundColor = ['rgb(22, 54, 51)', 'rgb(157, 222, 255)', 'rgb(194, 209, 223)']
 
   return {
     tooltip: {
@@ -52,5 +52,5 @@ export const useOption = (categories: ClassType[], artSum: number, mode: number)
         }
       }
     ]
-  };
-};
+  }
+}

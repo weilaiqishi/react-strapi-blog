@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  tags: string[];
+  tags: string[]
 }
 
 const PostTags: React.FC<Props> = ({ tags }) => {
@@ -15,7 +15,7 @@ const PostTags: React.FC<Props> = ({ tags }) => {
         </span>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default PostTags;
+export default PostTags

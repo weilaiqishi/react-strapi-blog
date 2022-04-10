@@ -1,19 +1,19 @@
-import React from 'react';
+import React from 'react'
 
-import { icp_no, icp_site, source_github } from '@/utils/constant';
+import { icp_no, icp_site, source_github } from '@/utils/constant'
 
-import s from './index.scss';
+import s from './index.scss'
 
 const Footer: React.FC = () => {
   const frameArr = [
     'React',
     'React Router',
-    'Redux',
+    'Mobx',
     'Webpack',
     'AntD',
     'ahooks',
-    'CloudBase'
-  ];
+    'Strapi'
+  ]
 
   return (
     <footer className={s.footer}>
@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
         ))}
       </span>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

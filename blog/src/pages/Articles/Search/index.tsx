@@ -1,29 +1,29 @@
-import { ArrowRightOutlined, RedoOutlined } from '@ant-design/icons';
-import { useKeyPress, useMemoizedFn, useSafeState } from 'ahooks';
-import { message } from 'antd';
-import React, { useRef } from 'react';
+import { ArrowRightOutlined, RedoOutlined } from '@ant-design/icons'
+import { useKeyPress, useMemoizedFn, useSafeState } from 'ahooks'
+import { message } from 'antd'
+import React, { useRef } from 'react'
 
-import { db } from '@/utils/cloudBase';
+import { db } from '@/utils/cloudBase'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  page: number;
-  setPage: Function;
-  where: object;
-  setWhere: Function;
-  setIsReset: Function;
-  run: Function;
+  page: number
+  setPage: Function
+  where: object
+  setWhere: Function
+  setIsReset: Function
+  run: Function
 }
 
 const Search: React.FC<Props> = ({ page, setPage, where, setWhere, setIsReset, run }) => {
-  const [input, setInput] = useSafeState('');
-  const inputRef = useRef(null);
+  const [input, setInput] = useSafeState('')
+  const inputRef = useRef(null)
 
   const search = useMemoizedFn(() => {
     if (!input) {
-      message.info('请输入关键词再搜索!');
-      return;
+      message.info('请输入关键词再搜索!')
+      return
     }
     setTimeout(() => {
       setWhere({
@@ -31,38 +31,38 @@ const Search: React.FC<Props> = ({ page, setPage, where, setWhere, setIsReset, r
           regexp: `${input}`,
           options: 'i'
         })
-      });
-      setPage(1);
-      run?.();
-    }, 0);
-  });
+      })
+      setPage(1)
+      run?.()
+    }, 0)
+  })
 
   const reset = useMemoizedFn(() => {
     if (JSON.stringify(where) === '{}' && page === 1 && !input) {
-      message.info('无需重置!');
-      return;
+      message.info('无需重置!')
+      return
     }
     if (JSON.stringify(where) === '{}' && page === 1) {
-      setInput('');
-      message.success('重置成功!');
-      return;
+      setInput('')
+      message.success('重置成功!')
+      return
     }
     setTimeout(() => {
-      setIsReset(true);
-      setInput?.('');
-      setWhere({});
-      setPage(1);
-      run?.();
-    }, 0);
-  });
+      setIsReset(true)
+      setInput?.('')
+      setWhere({})
+      setPage(1)
+      run?.()
+    }, 0)
+  })
 
   useKeyPress(13, search, {
     target: inputRef
-  });
+  })
 
   useKeyPress(27, reset, {
     target: inputRef
-  });
+  })
 
   return (
     <div className={s.searchBox}>
@@ -84,7 +84,7 @@ const Search: React.FC<Props> = ({ page, setPage, where, setWhere, setIsReset, r
         <RedoOutlined />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

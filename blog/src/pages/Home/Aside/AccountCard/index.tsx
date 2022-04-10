@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import Card from '@/components/Card';
+import Card from '@/components/Card'
 
-import IcoBtn from './IcoBtn';
-import s from './index.scss';
-import { useAccount } from './useAccount';
+import IcoBtn from './IcoBtn'
+import s from './index.scss'
+import { useAccount } from './useAccount'
 
 const AccountCard: React.FC = () => {
-  const accounts = useAccount();
+  const accounts = useAccount()
 
   return (
     <Card className={s.card}>
@@ -17,7 +17,7 @@ const AccountCard: React.FC = () => {
         </IcoBtn>
       ))}
     </Card>
-  );
-};
+  )
+}
 
-export default AccountCard;
+export default AccountCard

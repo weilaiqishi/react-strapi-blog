@@ -1,14 +1,14 @@
-import { useInterval } from 'ahooks';
-import React from 'react';
+import { useInterval } from 'ahooks'
+import React from 'react'
 
-import Card from '@/components/Card';
+import Card from '@/components/Card'
 
-import s from './index.scss';
-import { useClock } from './useClock';
+import s from './index.scss'
+import { useClock } from './useClock'
 
 const ClockCard: React.FC = () => {
-  const { hour, minute, second, runPerSecond } = useClock();
-  useInterval(runPerSecond, 1000);
+  const { hour, minute, second, runPerSecond } = useClock()
+  useInterval(runPerSecond, 1000)
 
   return (
     <Card className={s.card}>
@@ -31,7 +31,7 @@ const ClockCard: React.FC = () => {
         />
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default ClockCard;
+export default ClockCard

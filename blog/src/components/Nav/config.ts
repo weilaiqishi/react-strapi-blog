@@ -7,12 +7,12 @@ export const useLinkList = () => {
     { name: '作品', to: '/show' },
     { name: '建站', to: '/log' },
     { name: '关于', to: '/about' }
-  ];
+  ]
   const secondNavArr = [
     { name: '找文章', to: '/articles' },
     { name: '分类', to: '/categories' },
     { name: '标签', to: '/tags' }
-  ];
+  ]
 
   const mobileNavArr = [
     { name: '主页', to: '/' },
@@ -26,11 +26,11 @@ export const useLinkList = () => {
     { name: '作品', to: '/show' },
     { name: '建站', to: '/log' },
     { name: '关于', to: '/about' }
-  ];
+  ]
 
   return {
     navArr,
     secondNavArr,
     mobileNavArr
-  };
-};
+  }
+}

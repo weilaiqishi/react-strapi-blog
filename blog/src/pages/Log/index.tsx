@@ -1,18 +1,18 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
+import { useRequest } from 'ahooks'
+import React from 'react'
 
-import Layout from '@/components/Layout';
-import { DB } from '@/utils/apis/dbConfig';
-import { getOrderData } from '@/utils/apis/getOrderData';
-import { staleTime } from '@/utils/constant';
+import Layout from '@/components/Layout'
+import { DB } from '@/utils/apis/dbConfig'
+import { getOrderData } from '@/utils/apis/getOrderData'
+import { staleTime } from '@/utils/constant'
 
-import { Title } from '../titleConfig';
-import TimeItem from './TimeItem';
+import { Title } from '../titleConfig'
+import TimeItem from './TimeItem'
 
 interface Log {
-  _id: string;
-  date: number;
-  logContent: string[];
+  _id: string
+  date: number
+  logContent: string[]
 }
 
 const Log: React.FC = () => {
@@ -21,7 +21,7 @@ const Log: React.FC = () => {
     retryCount: 3,
     cacheKey: `Log-${DB.Log}`,
     staleTime
-  });
+  })
 
   return (
     <Layout title={Title.Log} loading={loading}>
@@ -29,7 +29,7 @@ const Log: React.FC = () => {
         <TimeItem key={_id} date={date} logContent={logContent} />
       ))}
     </Layout>
-  );
-};
+  )
+}
 
-export default Log;
+export default Log

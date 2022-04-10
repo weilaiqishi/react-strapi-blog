@@ -1,20 +1,20 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
+import { useRequest } from 'ahooks'
+import React from 'react'
 
-import Layout from '@/components/Layout';
-import { DB } from '@/utils/apis/dbConfig';
-import { getData } from '@/utils/apis/getData';
-import { staleTime } from '@/utils/constant';
+import Layout from '@/components/Layout'
+import { DB } from '@/utils/apis/dbConfig'
+import { getData } from '@/utils/apis/getData'
+import { staleTime } from '@/utils/constant'
 
-import { Title } from '../titleConfig';
-import ImgCard from './ImgCard';
-import s from './index.scss';
+import { Title } from '../titleConfig'
+import ImgCard from './ImgCard'
+import s from './index.scss'
 
 interface GalleryType {
-  _id: string;
-  cover: string;
-  title: string;
-  descr: string;
+  _id: string
+  cover: string
+  title: string
+  descr: string
 }
 
 const Gallery: React.FC = () => {
@@ -23,7 +23,7 @@ const Gallery: React.FC = () => {
     retryCount: 3,
     cacheKey: `Gallery-${DB.Gallery}`,
     staleTime
-  });
+  })
 
   return (
     <Layout title={Title.Gallery} loading={loading} className={s.imgBox}>
@@ -36,7 +36,7 @@ const Gallery: React.FC = () => {
         />
       ))}
     </Layout>
-  );
-};
+  )
+}
 
-export default Gallery;
+export default Gallery

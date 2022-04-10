@@ -1,13 +1,13 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from 'classnames'
+import React from 'react'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  state: boolean;
-  toggle: Function;
-  setLeft: Function;
-  setRight: Function;
+  state: boolean
+  toggle: Function
+  setLeft: Function
+  setRight: Function
 }
 
 const Switch: React.FC<Props> = ({ state, toggle, setLeft, setRight }) => {
@@ -29,7 +29,7 @@ const Switch: React.FC<Props> = ({ state, toggle, setLeft, setRight }) => {
         关于我
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Switch;
+export default Switch

@@ -1,17 +1,17 @@
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler } from 'react'
 
-import { smallLoadingUrl } from '@/utils/constant';
-import { useLazyImg } from '@/utils/hooks/useLazyImg';
+import { smallLoadingUrl } from '@/utils/constant'
+import { useLazyImg } from '@/utils/hooks/useLazyImg'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  url?: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  url?: string
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const ImgItem: React.FC<Props> = ({ url, onClick }) => {
-  const { imgRef, imgUrl } = useLazyImg(url!, smallLoadingUrl);
+  const { imgRef, imgUrl } = useLazyImg(url!, smallLoadingUrl)
 
   return (
     <div
@@ -23,7 +23,7 @@ const ImgItem: React.FC<Props> = ({ url, onClick }) => {
       }}
       onClick={onClick!}
     />
-  );
-};
+  )
+}
 
-export default ImgItem;
+export default ImgItem

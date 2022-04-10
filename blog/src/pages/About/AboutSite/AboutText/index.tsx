@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import MarkDown from '@/components/MarkDown';
+import MarkDown from '@/components/MarkDown'
 
 interface Props {
-  content?: string;
+  content?: string
 }
 
 const AboutText: React.FC<Props> = ({ content }) => {
-  return <MarkDown content={content || ''} />;
-};
+  return <MarkDown content={content || ''} />
+}
 
-export default AboutText;
+export default AboutText

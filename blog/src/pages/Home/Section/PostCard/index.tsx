@@ -1,18 +1,18 @@
-import dayjs from 'dayjs';
-import React, { MouseEventHandler } from 'react';
+import dayjs from 'dayjs'
+import React, { MouseEventHandler } from 'react'
 
-import Card from '@/components/Card';
+import Card from '@/components/Card'
 
-import s from './index.scss';
-import PostCardLoading from './PostCardLoading';
+import s from './index.scss'
+import PostCardLoading from './PostCardLoading'
 
 interface Props {
-  title?: string;
-  content?: string;
-  date?: string | number;
-  tags?: string[];
-  loading?: boolean;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  title?: string
+  content?: string
+  date?: string | number
+  tags?: string[]
+  loading?: boolean
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const PostCard: React.FC<Props> = ({ title, content, date, tags, loading, onClick }) => {
@@ -39,7 +39,7 @@ const PostCard: React.FC<Props> = ({ title, content, date, tags, loading, onClic
         </>
       )}
     </Card>
-  );
-};
+  )
+}
 
-export default PostCard;
+export default PostCard

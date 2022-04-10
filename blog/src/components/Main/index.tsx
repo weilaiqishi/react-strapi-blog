@@ -1,24 +1,24 @@
-import React, { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorBoundary from '@/components/ErrorBoundary'
 
-import s from './index.scss';
+import s from './index.scss'
 
-const Home = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Home'));
-const Articles = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Articles'));
-const Categories = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Categories'));
-const Tags = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Tags'));
-const Gallery = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Gallery'));
-const Img = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Img'));
-const Say = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Say'));
-const Msg = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Msg'));
-const Link = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Link'));
-const Show = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Show'));
-const Log = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Log'));
-const About = lazy(() => import(/* webpackPrefetch:true */ '@/pages/About'));
-const Post = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Post'));
-const ArtDetail = lazy(() => import(/* webpackPrefetch:true */ '@/pages/ArtDetail'));
+const Home = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Home'))
+const Articles = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Articles'))
+const Categories = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Categories'))
+const Tags = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Tags'))
+const Gallery = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Gallery'))
+const Img = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Img'))
+const Say = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Say'))
+const Msg = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Msg'))
+const Link = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Link'))
+const Show = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Show'))
+const Log = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Log'))
+const About = lazy(() => import(/* webpackPrefetch:true */ '@/pages/About'))
+const Post = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Post'))
+const ArtDetail = lazy(() => import(/* webpackPrefetch:true */ '@/pages/ArtDetail'))
 
 const Main: React.FC = () => {
   return (
@@ -47,7 +47,7 @@ const Main: React.FC = () => {
         </ErrorBoundary>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main

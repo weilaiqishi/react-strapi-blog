@@ -1,7 +1,7 @@
-import { GithubOutlined} from '@ant-design/icons';
-import React from 'react';
+import { GithubOutlined} from '@ant-design/icons'
+import React from 'react'
 
-import { githubUrl } from '@/utils/constant';
+import { githubUrl } from '@/utils/constant'
 
 
 export const useAccount = () => {
@@ -12,5 +12,5 @@ export const useAccount = () => {
       ico: <GithubOutlined />,
       content: null
     }
-  ];
-};
+  ]
+}

@@ -1,31 +1,31 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRequest } from 'ahooks'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import Layout from '@/components/Layout';
-import { DB } from '@/utils/apis/dbConfig';
-import { getData } from '@/utils/apis/getData';
-import { staleTime } from '@/utils/constant';
+import Layout from '@/components/Layout'
+import { DB } from '@/utils/apis/dbConfig'
+import { getData } from '@/utils/apis/getData'
+import { staleTime } from '@/utils/constant'
 
-import { Title } from '../titleConfig';
-import CategoriesBar from './CategoriesBar';
-import s from './index.scss';
+import { Title } from '../titleConfig'
+import CategoriesBar from './CategoriesBar'
+import s from './index.scss'
 
 interface ClassType {
-  _id: string;
-  class: string;
-  count: number;
+  _id: string
+  class: string
+  count: number
 }
 
 const Categories: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const { data, loading } = useRequest(getData, {
     defaultParams: [DB.Class],
     retryCount: 3,
     cacheKey: `categories-${DB.Class}`,
     staleTime
-  });
+  })
 
   return (
     <Layout title={Title.categories} loading={loading} className={s.classBox} rows={8}>
@@ -39,7 +39,7 @@ const Categories: React.FC = () => {
         />
       ))}
     </Layout>
-  );
-};
+  )
+}
 
-export default Categories;
+export default Categories

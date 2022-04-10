@@ -1,28 +1,22 @@
 import { useQuery } from '@apollo/client'
 import { useRequest } from 'ahooks'
-import React from 'react'
-import { connect } from 'react-redux'
+import { useLocalObservable, useObserver } from 'mobx-react'
+import React, { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import * as api from '@/api'
 import Card from '@/components/Card'
-import { setArtSum } from '@/redux/actions'
-import { DB } from '@/utils/apis/dbConfig'
-import { staleTime } from '@/utils/constant'
+import { rootStore } from '@/mobx'
 
-import { fetchData } from './fetchData'
 import s from './index.scss'
 
-interface Props {
-  setArtSum?: Function
-}
 
-const DataCard: React.FC<Props> = ({ setArtSum }) => {
-  const navigate = useNavigate();
-  const { loading, error, data } = useQuery<api.typeArticleNums>(api.articleNumsQuery);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-  console.log(data)
+const DataCard: React.FC = () => {
+  const store = useLocalObservable(() => rootStore)
+  const navigate = useNavigate()
+  const { loading, error, data } = useQuery<api.typeArticleNums>(api.articleNumsQuery)
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error :(</p>
 
   return (
     <Card className={s.card} loading={loading}>
@@ -39,9 +33,7 @@ const DataCard: React.FC<Props> = ({ setArtSum }) => {
         <div className={s.num}>{data?.tags.meta.pagination.total}</div>
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default connect(() => ({}), {
-  setArtSum
-})(DataCard)
+export default memo(DataCard)

@@ -1,22 +1,22 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
+import { useRequest } from 'ahooks'
+import React from 'react'
 
 import * as api from '@/api'
-import Card from '@/components/Card';
-import { DB } from '@/utils/apis/dbConfig';
-import { siteCountStale } from '@/utils/constant';
+import Card from '@/components/Card'
+import { DB } from '@/utils/apis/dbConfig'
+import { siteCountStale } from '@/utils/constant'
 
-import s from './index.scss';
-import { useRunTime } from './useRunTime';
+import s from './index.scss'
+import { useRunTime } from './useRunTime'
 
 const SiteCard: React.FC = () => {
-  const { runTime } = useRunTime();
+  const { runTime } = useRunTime()
 
   const { data, loading } = useRequest(api.strapiPageviewCount, {
     retryCount: 3,
     cacheKey: `SiteCard-siteCount`,
     staleTime: siteCountStale
-  });
+  })
 
   return (
     <Card className={s.card} loading={loading}>
@@ -29,7 +29,7 @@ const SiteCard: React.FC = () => {
         <span className={s.value}>{runTime}天</span>
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default SiteCard;
+export default SiteCard

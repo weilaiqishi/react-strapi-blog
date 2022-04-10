@@ -1,22 +1,21 @@
-import { PieChart } from 'echarts/charts';
-import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
-import * as echarts from 'echarts/core';
-import { LabelLayout } from 'echarts/features';
-import { CanvasRenderer } from 'echarts/renderers';
-import ReactEChartsCore from 'echarts-for-react/lib/core';
-import React from 'react';
-import { connect } from 'react-redux';
+import { PieChart } from 'echarts/charts'
+import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components'
+import * as echarts from 'echarts/core'
+import { LabelLayout } from 'echarts/features'
+import { CanvasRenderer } from 'echarts/renderers'
+import ReactEChartsCore from 'echarts-for-react/lib/core'
+import { useLocalObservable, useObserver } from 'mobx-react'
+import React from 'react'
 
-import { storeState } from '@/redux/interface';
+import { rootStore } from '@/mobx'
 
-import { ClassType } from '../index';
-import s from './index.scss';
-import { useOption } from './useOption';
+import { ClassType } from '../index'
+import s from './index.scss'
+import { useOption } from './useOption'
 
 interface Props {
-  categories?: ClassType[];
-  artSum?: number;
-  mode?: number;
+  categories: ClassType[]
+  artSum: number
 }
 
 echarts.use([
@@ -26,12 +25,13 @@ echarts.use([
   PieChart,
   CanvasRenderer,
   LabelLayout
-]);
+])
 
-const Chart: React.FC<Props> = ({ categories, artSum, mode }) => {
-  const option = useOption(categories!, artSum!, mode!);
+const Chart: React.FC<Props> = ({ categories, artSum }) => {
+  const store = useLocalObservable(() => rootStore)
+  const option = useOption(categories, artSum, store.uiStore.mode)
 
-  return (
+  return useObserver(() =>
     <div className={s.box}>
       <h3>📊文章分布</h3>
       <ReactEChartsCore
@@ -45,9 +45,7 @@ const Chart: React.FC<Props> = ({ categories, artSum, mode }) => {
         theme='theme_name'
       />
     </div>
-  );
-};
+  )
+}
 
-export default connect((state: storeState) => ({
-  mode: state.mode
-}))(Chart);
+export default Chart

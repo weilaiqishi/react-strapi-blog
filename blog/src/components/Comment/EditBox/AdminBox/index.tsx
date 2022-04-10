@@ -1,20 +1,20 @@
-import { useKeyPress, useMemoizedFn, useSafeState } from 'ahooks';
-import { message } from 'antd';
-import classNames from 'classnames';
-import React, { useRef } from 'react';
+import { useKeyPress, useMemoizedFn, useSafeState } from 'ahooks'
+import { message } from 'antd'
+import classNames from 'classnames'
+import React, { useRef } from 'react'
 
-import { authLogin } from '@/utils/apis/authLogin';
-import { myAvatar70, myEmail, myLink, myName } from '@/utils/constant';
+import { authLogin } from '@/utils/apis/authLogin'
+import { myAvatar70, myEmail, myLink, myName } from '@/utils/constant'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  showAdmin?: boolean;
-  setShowAdmin?: Function;
-  setName?: Function;
-  setEmail?: Function;
-  setLink?: Function;
-  setAvatar?: Function;
+  showAdmin?: boolean
+  setShowAdmin?: Function
+  setName?: Function
+  setEmail?: Function
+  setLink?: Function
+  setAvatar?: Function
 }
 
 const AdminBox: React.FC<Props> = ({
@@ -25,33 +25,33 @@ const AdminBox: React.FC<Props> = ({
   setLink,
   setAvatar
 }) => {
-  const pwdRef = useRef(null);
+  const pwdRef = useRef(null)
 
-  const [adminEmail, setAdminEmail] = useSafeState('');
-  const [adminPwd, setAdminPwd] = useSafeState('');
+  const [adminEmail, setAdminEmail] = useSafeState('')
+  const [adminPwd, setAdminPwd] = useSafeState('')
 
   const hideAdmin = useMemoizedFn(() => {
-    setShowAdmin?.(false);
-    setAdminEmail('');
-    setAdminPwd('');
-  });
+    setShowAdmin?.(false)
+    setAdminEmail('')
+    setAdminPwd('')
+  })
 
   const adminLogin = useMemoizedFn(async () => {
     if (await authLogin(adminEmail!, adminPwd!)) {
-      message.success('登陆成功！');
-      setName?.(myName);
-      setEmail?.(myEmail);
-      setLink?.(myLink);
-      setAvatar?.(myAvatar70);
-      hideAdmin();
+      message.success('登陆成功！')
+      setName?.(myName)
+      setEmail?.(myEmail)
+      setLink?.(myLink)
+      setAvatar?.(myAvatar70)
+      hideAdmin()
     } else {
-      message.error('登陆失败，请重试！');
+      message.error('登陆失败，请重试！')
     }
-  });
+  })
 
   useKeyPress(13, adminLogin, {
     target: pwdRef
-  });
+  })
 
   return (
     <div className={classNames(s.adminBox, { [s.showAdmin]: showAdmin })}>
@@ -83,7 +83,7 @@ const AdminBox: React.FC<Props> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AdminBox;
+export default AdminBox

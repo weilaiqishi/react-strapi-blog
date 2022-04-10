@@ -1,18 +1,18 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
+import { useRequest } from 'ahooks'
+import React from 'react'
 
-import Layout from '@/components/Layout';
-import { DB } from '@/utils/apis/dbConfig';
-import { getOrderData } from '@/utils/apis/getOrderData';
-import { staleTime } from '@/utils/constant';
+import Layout from '@/components/Layout'
+import { DB } from '@/utils/apis/dbConfig'
+import { getOrderData } from '@/utils/apis/getOrderData'
+import { staleTime } from '@/utils/constant'
 
-import { Title } from '../titleConfig';
-import SayPop from './SayPop';
+import { Title } from '../titleConfig'
+import SayPop from './SayPop'
 
 interface SayType {
-  _id: string;
-  content: string;
-  date: number;
+  _id: string
+  content: string
+  date: number
 }
 
 const Say: React.FC = () => {
@@ -21,7 +21,7 @@ const Say: React.FC = () => {
     retryCount: 3,
     cacheKey: `Say-${DB.Say}`,
     staleTime
-  });
+  })
 
   return (
     <Layout title={Title.Say} loading={loading}>
@@ -29,7 +29,7 @@ const Say: React.FC = () => {
         <SayPop key={_id} content={content} date={date} />
       ))}
     </Layout>
-  );
-};
+  )
+}
 
-export default Say;
+export default Say

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  cover?: string;
-  link?: string;
-  name?: string;
-  descr?: string;
+  cover?: string
+  link?: string
+  name?: string
+  descr?: string
 }
 
 const ShowItem: React.FC<Props> = ({ cover, link, name, descr }) => {
@@ -20,7 +20,7 @@ const ShowItem: React.FC<Props> = ({ cover, link, name, descr }) => {
         <div className={s.mask} />
       </a>
     </div>
-  );
-};
+  )
+}
 
-export default ShowItem;
+export default ShowItem

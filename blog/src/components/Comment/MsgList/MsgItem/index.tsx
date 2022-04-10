@@ -1,33 +1,33 @@
-import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/zh-cn'
 
-import { MessageOutlined } from '@ant-design/icons';
-import { useBoolean } from 'ahooks';
-import classNames from 'classnames';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import React from 'react';
+import { MessageOutlined } from '@ant-design/icons'
+import { useBoolean } from 'ahooks'
+import classNames from 'classnames'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import React from 'react'
 
-import MarkDown from '@/components/MarkDown';
-import { myEmail, smallLoadingUrl } from '@/utils/constant';
-import { useLazyImg } from '@/utils/hooks/useLazyImg';
+import MarkDown from '@/components/MarkDown'
+import { myEmail, smallLoadingUrl } from '@/utils/constant'
+import { useLazyImg } from '@/utils/hooks/useLazyImg'
 
-import EditBox from '../../EditBox';
-import s from './index.scss';
+import EditBox from '../../EditBox'
+import s from './index.scss'
 
-dayjs.locale('zh-cn');
-dayjs.extend(relativeTime);
+dayjs.locale('zh-cn')
+dayjs.extend(relativeTime)
 
 interface Props {
-  _id?: string;
-  avatar?: string;
-  link?: string;
-  name?: string;
-  date?: number;
-  content?: string;
-  email?: string;
-  isReply?: boolean;
-  replyRun?: Function;
-  title?: string;
+  _id?: string
+  avatar?: string
+  link?: string
+  name?: string
+  date?: number
+  content?: string
+  email?: string
+  isReply?: boolean
+  replyRun?: Function
+  title?: string
 }
 
 const MsgItem: React.FC<Props> = ({
@@ -42,8 +42,8 @@ const MsgItem: React.FC<Props> = ({
   replyRun,
   title
 }) => {
-  const [showReply, { toggle: toggleReply, setFalse: closeReply }] = useBoolean(false);
-  const { imgRef, imgUrl } = useLazyImg(avatar!, smallLoadingUrl);
+  const [showReply, { toggle: toggleReply, setFalse: closeReply }] = useBoolean(false)
+  const { imgRef, imgUrl } = useLazyImg(avatar!, smallLoadingUrl)
 
   return (
     <div
@@ -98,7 +98,7 @@ const MsgItem: React.FC<Props> = ({
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default MsgItem;
+export default MsgItem

@@ -1,13 +1,13 @@
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler } from 'react'
 
-import DisplayBarLoading from './DisplayBarLoading';
-import s from './index.scss';
+import DisplayBarLoading from './DisplayBarLoading'
+import s from './index.scss'
 
 interface Props {
-  content?: string;
-  right?: string;
-  loading?: boolean;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  content?: string
+  right?: string
+  loading?: boolean
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const DisplayBar: React.FC<Props> = ({ content = '', right = '', loading, onClick }) => {
@@ -24,7 +24,7 @@ const DisplayBar: React.FC<Props> = ({ content = '', right = '', loading, onClic
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default DisplayBar;
+export default DisplayBar

@@ -1,21 +1,21 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
+import { useRequest } from 'ahooks'
+import React from 'react'
 
-import Layout from '@/components/Layout';
-import { DB } from '@/utils/apis/dbConfig';
-import { getOrderData } from '@/utils/apis/getOrderData';
-import { staleTime } from '@/utils/constant';
+import Layout from '@/components/Layout'
+import { DB } from '@/utils/apis/dbConfig'
+import { getOrderData } from '@/utils/apis/getOrderData'
+import { staleTime } from '@/utils/constant'
 
-import { Title } from '../titleConfig';
-import s from './index.scss';
-import ShowItem from './ShowItem';
+import { Title } from '../titleConfig'
+import s from './index.scss'
+import ShowItem from './ShowItem'
 
 interface ShowType {
-  _id: string;
-  cover: string;
-  link: string;
-  name: string;
-  descr: string;
+  _id: string
+  cover: string
+  link: string
+  name: string
+  descr: string
 }
 
 const Show: React.FC = () => {
@@ -30,7 +30,7 @@ const Show: React.FC = () => {
     retryCount: 3,
     cacheKey: `Show-${DB.Show}`,
     staleTime
-  });
+  })
 
   return (
     <Layout title={Title.Show} loading={loading} className={s.showBox}>
@@ -44,7 +44,7 @@ const Show: React.FC = () => {
         />
       ))}
     </Layout>
-  );
-};
+  )
+}
 
-export default Show;
+export default Show

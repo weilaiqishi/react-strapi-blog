@@ -1,24 +1,25 @@
-import './index.custom.scss';
+import './index.custom.scss'
 
-import { MenuFoldOutlined } from '@ant-design/icons';
-import { useBoolean } from 'ahooks';
-import { Drawer } from 'antd';
-import classNames from 'classnames';
-import MarkNav from 'markdown-navbar';
-import React from 'react';
-import { connect } from 'react-redux';
+import { MenuFoldOutlined } from '@ant-design/icons'
+import { useBoolean } from 'ahooks'
+import { Drawer } from 'antd'
+import classNames from 'classnames'
+import MarkNav from 'markdown-navbar'
+import { useLocalObservable, useObserver } from 'mobx-react'
+import React from 'react'
 
-import { setNavShow } from '@/redux/actions';
+import { rootStore } from '@/mobx'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  content?: string;
-  setNavShow?: Function;
+  content?: string
+  setNavShow?: Function
 }
 
-const Navbar: React.FC<Props> = ({ content, setNavShow }) => {
-  const [visible, { setTrue: openDrawer, setFalse: closeDrawer }] = useBoolean(false);
+const Navbar: React.FC<Props> = ({ content }) => {
+  const store = useLocalObservable(() => rootStore)
+  const [visible, { setTrue: openDrawer, setFalse: closeDrawer }] = useBoolean(false)
 
   return (
     <>
@@ -29,7 +30,7 @@ const Navbar: React.FC<Props> = ({ content, setNavShow }) => {
         headingTopOffset={15}
         ordered={false}
         updateHashAuto={false}
-        onNavItemClick={() => setNavShow?.(false)}
+        onNavItemClick={() => store.uiStore.setNavShow(false)}
       />
       {/* 中屏显示的按钮 */}
       <div className={s.hoverBar} onClick={openDrawer}>
@@ -49,13 +50,11 @@ const Navbar: React.FC<Props> = ({ content, setNavShow }) => {
           headingTopOffset={15 + 60}
           ordered={false}
           updateHashAuto={false}
-          onNavItemClick={() => setNavShow?.(true)}
+          onNavItemClick={() => store.uiStore.setNavShow(true)}
         />
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default connect(() => ({}), {
-  setNavShow
-})(Navbar);
+export default Navbar

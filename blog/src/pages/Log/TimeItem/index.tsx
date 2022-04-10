@@ -1,11 +1,11 @@
-import dayjs from 'dayjs';
-import React from 'react';
+import dayjs from 'dayjs'
+import React from 'react'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  date: number;
-  logContent: string[];
+  date: number
+  logContent: string[]
 }
 
 const TimeItem: React.FC<Props> = ({ date, logContent }) => {
@@ -26,7 +26,7 @@ const TimeItem: React.FC<Props> = ({ date, logContent }) => {
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default TimeItem;
+export default TimeItem

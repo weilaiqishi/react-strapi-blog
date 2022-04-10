@@ -1,13 +1,13 @@
-import React from 'react';
-import sanitizeHtml from 'sanitize-html';
+import React from 'react'
+import sanitizeHtml from 'sanitize-html'
 
-import MarkDown from '@/components/MarkDown';
+import MarkDown from '@/components/MarkDown'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  closePre?: Function;
-  content?: string;
+  closePre?: Function
+  content?: string
 }
 
 const PreShow: React.FC<Props> = ({ closePre, content }) => {
@@ -18,7 +18,7 @@ const PreShow: React.FC<Props> = ({ closePre, content }) => {
       </div>
       <MarkDown className={s.preMarked} content={sanitizeHtml(content!)} />
     </div>
-  );
-};
+  )
+}
 
-export default PreShow;
+export default PreShow

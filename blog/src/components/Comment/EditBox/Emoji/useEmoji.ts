@@ -48,7 +48,7 @@ export const useEmoji = () => {
     '😈',
     '😤',
     '👽'
-  ];
+  ]
   const emojiNature = [
     '🔓',
     '🔐',
@@ -109,7 +109,7 @@ export const useEmoji = () => {
     '🗑️',
     '🔧',
     '⚙️'
-  ];
+  ]
   const emojiSymbol = [
     '🏧',
     '🚾',
@@ -139,7 +139,7 @@ export const useEmoji = () => {
     '🔠',
     '🔢',
     '🆗'
-  ];
+  ]
   const emojiFood = [
     '🍈',
     '🍇',
@@ -186,12 +186,12 @@ export const useEmoji = () => {
     '🍺',
     '🍻',
     '🥂'
-  ];
+  ]
 
   return {
     emojiPeople,
     emojiNature,
     emojiSymbol,
     emojiFood
-  };
-};
+  }
+}

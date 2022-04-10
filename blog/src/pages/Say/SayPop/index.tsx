@@ -1,13 +1,13 @@
-import dayjs from 'dayjs';
-import React from 'react';
+import dayjs from 'dayjs'
+import React from 'react'
 
-import { myAvatar70 } from '@/utils/constant';
+import { myAvatar70 } from '@/utils/constant'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  content?: string;
-  date?: number;
+  content?: string
+  date?: number
 }
 
 const SayPop: React.FC<Props> = ({ content, date }) => (
@@ -23,6 +23,6 @@ const SayPop: React.FC<Props> = ({ content, date }) => (
       </div>
     </div>
   </div>
-);
+)
 
-export default SayPop;
+export default SayPop

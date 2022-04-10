@@ -1,21 +1,21 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
+import { useRequest } from 'ahooks'
+import React from 'react'
 
-import Layout from '@/components/Layout';
-import { DB } from '@/utils/apis/dbConfig';
-import { getData } from '@/utils/apis/getData';
-import { staleTime } from '@/utils/constant';
+import Layout from '@/components/Layout'
+import { DB } from '@/utils/apis/dbConfig'
+import { getData } from '@/utils/apis/getData'
+import { staleTime } from '@/utils/constant'
 
-import { Title } from '../titleConfig';
-import s from './index.scss';
-import LinkItem from './LinkItem';
+import { Title } from '../titleConfig'
+import s from './index.scss'
+import LinkItem from './LinkItem'
 
 interface linkType {
-  _id: string;
-  link: string;
-  avatar: string;
-  name: string;
-  descr: string;
+  _id: string
+  link: string
+  avatar: string
+  name: string
+  descr: string
 }
 
 const Link: React.FC = () => {
@@ -24,7 +24,7 @@ const Link: React.FC = () => {
     retryCount: 3,
     cacheKey: `Link-${DB.Link}`,
     staleTime
-  });
+  })
 
   return (
     <Layout title={Title.Link} loading={loading} className={s.box}>
@@ -38,7 +38,7 @@ const Link: React.FC = () => {
         />
       ))}
     </Layout>
-  );
-};
+  )
+}
 
-export default Link;
+export default Link

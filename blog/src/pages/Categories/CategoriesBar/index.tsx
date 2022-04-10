@@ -1,13 +1,13 @@
-import classNames from 'classnames';
-import React, { MouseEventHandler } from 'react';
+import classNames from 'classnames'
+import React, { MouseEventHandler } from 'react'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  content: string;
-  num: number;
-  className?: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  content: string
+  num: number
+  className?: string
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const CategoriesBar: React.FC<Props> = ({ content, num, onClick, className }) => {
@@ -16,7 +16,7 @@ const CategoriesBar: React.FC<Props> = ({ content, num, onClick, className }) =>
       {content}
       <div className={s.categoriesNum}>{num}</div>
     </div>
-  );
-};
+  )
+}
 
-export default CategoriesBar;
+export default CategoriesBar

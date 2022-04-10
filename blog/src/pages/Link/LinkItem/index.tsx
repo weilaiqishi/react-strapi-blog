@@ -1,20 +1,20 @@
-import classNames from 'classnames';
-import React from 'react';
+import classNames from 'classnames'
+import React from 'react'
 
-import { smallLoadingUrl } from '@/utils/constant';
-import { useLazyImg } from '@/utils/hooks/useLazyImg';
+import { smallLoadingUrl } from '@/utils/constant'
+import { useLazyImg } from '@/utils/hooks/useLazyImg'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  link?: string;
-  avatar?: string;
-  name?: string;
-  descr?: string;
+  link?: string
+  avatar?: string
+  name?: string
+  descr?: string
 }
 
 const LinkItem: React.FC<Props> = ({ link, avatar, name, descr }) => {
-  const { imgRef, imgUrl } = useLazyImg(avatar!, smallLoadingUrl);
+  const { imgRef, imgUrl } = useLazyImg(avatar!, smallLoadingUrl)
 
   return (
     <div className={s.item}>
@@ -34,7 +34,7 @@ const LinkItem: React.FC<Props> = ({ link, avatar, name, descr }) => {
         </div>
       </a>
     </div>
-  );
-};
+  )
+}
 
-export default LinkItem;
+export default LinkItem

@@ -1,12 +1,12 @@
-import { Popover } from 'antd';
-import React, { ReactNode } from 'react';
+import { Popover } from 'antd'
+import React, { ReactNode } from 'react'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  isLink: boolean;
-  link?: string;
-  content?: ReactNode;
+  isLink: boolean
+  link?: string
+  content?: ReactNode
 }
 
 const IcoBtn: React.FC<Props> = ({ isLink, link, content, children }) => {
@@ -23,7 +23,7 @@ const IcoBtn: React.FC<Props> = ({ isLink, link, content, children }) => {
     >
       {children}
     </Popover>
-  );
-};
+  )
+}
 
-export default IcoBtn;
+export default IcoBtn

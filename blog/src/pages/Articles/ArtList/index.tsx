@@ -1,19 +1,19 @@
-import dayjs from 'dayjs';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import DisplayBar from '@/components/DisplayBar';
-import { ArticleType } from '@/pages/constant';
+import DisplayBar from '@/components/DisplayBar'
+import { ArticleType } from '@/pages/constant'
 
-import s from './index.scss';
+import s from './index.scss'
 
 interface Props {
-  articles?: ArticleType[];
-  loading?: boolean;
+  articles?: ArticleType[]
+  loading?: boolean
 }
 
 const ArtList: React.FC<Props> = ({ articles, loading }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <>
@@ -31,7 +31,7 @@ const ArtList: React.FC<Props> = ({ articles, loading }) => {
         <div className={s.none}>暂时无相应文章 ~</div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ArtList;
+export default ArtList

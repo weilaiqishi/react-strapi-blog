@@ -1,18 +1,18 @@
-import { useRequest } from 'ahooks';
-import React from 'react';
+import { useRequest } from 'ahooks'
+import React from 'react'
 
 import * as api from '@/api'
-import Card from '@/components/Card';
-import { staleTime } from '@/utils/constant';
+import Card from '@/components/Card'
+import { staleTime } from '@/utils/constant'
 
-import s from './index.scss';
+import s from './index.scss'
 
 const TagCard: React.FC = () => {
   const { data, loading } = useRequest(() => api.strapiTagList({}), {
     retryCount: 3,
     cacheKey: `TagCard-tag`,
     staleTime
-  });
+  })
 
   return (
     <Card className={s.card} loading={loading}>
@@ -24,7 +24,7 @@ const TagCard: React.FC = () => {
         )
       )}
     </Card>
-  );
-};
+  )
+}
 
-export default TagCard;
+export default TagCard

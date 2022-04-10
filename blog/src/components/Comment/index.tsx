@@ -1,34 +1,34 @@
-import { useRequest, useSafeState } from 'ahooks';
-import React from 'react';
+import { useRequest, useSafeState } from 'ahooks'
+import React from 'react'
 
-import { DB } from '@/utils/apis/dbConfig';
-import { getWhereOrderData } from '@/utils/apis/getWhereOrderData';
-import { _ } from '@/utils/cloudBase';
-import { msgSize } from '@/utils/constant';
+import { DB } from '@/utils/apis/dbConfig'
+import { getWhereOrderData } from '@/utils/apis/getWhereOrderData'
+import { _ } from '@/utils/cloudBase'
+import { msgSize } from '@/utils/constant'
 
-import MyPagination from '../MyPagination';
-import Divider from './Divider';
-import EditBox from './EditBox';
-import { fetchData } from './fetchData';
-import MsgList from './MsgList';
-import Placehold from './Placehold';
+import MyPagination from '../MyPagination'
+import Divider from './Divider'
+import EditBox from './EditBox'
+import { fetchData } from './fetchData'
+import MsgList from './MsgList'
+import Placehold from './Placehold'
 
 interface Props {
-  titleEng?: string;
-  autoScroll?: boolean;
-  scrollToTop?: number;
-  title?: string;
+  titleEng?: string
+  autoScroll?: boolean
+  scrollToTop?: number
+  title?: string
 }
 
 export interface MsgType {
-  avatar?: string;
-  content?: string;
-  date?: number;
-  email?: string;
-  link?: string;
-  name?: string;
-  replyId?: string;
-  _id?: string;
+  avatar?: string
+  content?: string
+  date?: number
+  email?: string
+  link?: string
+  name?: string
+  replyId?: string
+  _id?: string
 }
 
 const Comment: React.FC<Props> = ({
@@ -37,7 +37,7 @@ const Comment: React.FC<Props> = ({
   scrollToTop = 0,
   title
 }) => {
-  const [page, setPage] = useSafeState(1);
+  const [page, setPage] = useSafeState(1)
 
   // 评论
   const {
@@ -60,10 +60,10 @@ const Comment: React.FC<Props> = ({
       retryCount: 3,
       refreshDeps: [page],
       onSuccess: () => {
-        replyRun();
+        replyRun()
       }
     }
-  );
+  )
 
   // 回复
   const {
@@ -85,7 +85,7 @@ const Comment: React.FC<Props> = ({
       manual: true,
       retryCount: 3
     }
-  );
+  )
 
   return (
     <div>
@@ -108,7 +108,7 @@ const Comment: React.FC<Props> = ({
         scrollToTop={scrollToTop}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Comment;
+export default Comment
