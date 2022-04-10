@@ -10,13 +10,13 @@ import s from './index.scss'
 interface Props {
   page: number
   setPage: Function
-  where: object
-  setWhere: Function
+  title: string
+  setTitle: Function
   setIsReset: Function
   run: Function
 }
 
-const Search: React.FC<Props> = ({ page, setPage, where, setWhere, setIsReset, run }) => {
+const Search: React.FC<Props> = ({ page, setPage, title, setTitle, setIsReset, run }) => {
   const [input, setInput] = useSafeState('')
   const inputRef = useRef(null)
 
@@ -26,33 +26,23 @@ const Search: React.FC<Props> = ({ page, setPage, where, setWhere, setIsReset, r
       return
     }
     setTimeout(() => {
-      setWhere({
-        title: db.RegExp({
-          regexp: `${input}`,
-          options: 'i'
-        })
-      })
+      setTitle(input)
       setPage(1)
-      run?.()
+      run()
     }, 0)
   })
 
   const reset = useMemoizedFn(() => {
-    if (JSON.stringify(where) === '{}' && page === 1 && !input) {
+    if (!title && page === 1 && !input) {
       message.info('无需重置!')
-      return
-    }
-    if (JSON.stringify(where) === '{}' && page === 1) {
-      setInput('')
-      message.success('重置成功!')
       return
     }
     setTimeout(() => {
       setIsReset(true)
-      setInput?.('')
-      setWhere({})
+      setInput('')
+      setTitle()
       setPage(1)
-      run?.()
+      run()
     }, 0)
   })
 

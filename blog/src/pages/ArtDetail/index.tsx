@@ -4,65 +4,45 @@ import dayjs from 'dayjs'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import * as api from '@/api'
 import DisplayBar from '@/components/DisplayBar'
 import Layout from '@/components/Layout'
 import MyPagination from '@/components/MyPagination'
-import { DB } from '@/utils/apis/dbConfig'
-import { getWhereOrderPageSum } from '@/utils/apis/getWhereOrderPageSum'
-import { db } from '@/utils/cloudBase'
 import { detailPostSize, staleTime } from '@/utils/constant'
 
-import { ArticleType } from '../constant'
 
 const ArtDetail: React.FC = () => {
-  const [query] = useUrlState()
+  const [{ tag = '', category = '' }] = useUrlState()
   const navigate = useNavigate()
 
   const [page, setPage] = useSafeState(1)
 
-  const where = query.tag
-    ? {
-        tags: db.RegExp({
-          regexp: `${query.tag}`,
-          options: 'i'
-        })
-      }
-    : {
-        categories: query.class
-      }
-
   const { data, loading } = useRequest(
     () =>
-      getWhereOrderPageSum({
-        dbName: DB.Article,
-        where,
-        page,
-        size: detailPostSize,
-        sortKey: 'date'
-      }),
+      api.strapiArticleList({ page, pageSize: detailPostSize, tagName: tag, categoryName: category }),
     {
       retryCount: 3,
       refreshDeps: [page],
-      cacheKey: `ArtDetail-${DB.Article}-${JSON.stringify(where)}-${page}`,
+      cacheKey: `ArtDetail-articles-${tag}+${category}-${page}`,
       staleTime
     }
   )
 
   return (
-    <Layout title={query.tag || query.class}>
-      {data?.articles.data.map((item: ArticleType) => (
+    <Layout title={tag || category}>
+      {data?.data.map((item: api.typeArticleItem) => (
         <DisplayBar
-          key={item._id}
-          content={item.title}
-          right={dayjs(item.date).format('YYYY-MM-DD')}
+          key={item.id}
+          content={item.attributes.title}
+          right={dayjs(item.attributes.createdAt).format('YYYY-MM-DD')}
           loading={loading}
-          onClick={() => navigate(`/post?title=${encodeURIComponent(item.titleEng)}`)}
+          onClick={() => navigate(`/post?title=${encodeURIComponent(item.attributes.titleEng)}`)}
         />
       ))}
       <MyPagination
         current={page}
         defaultPageSize={detailPostSize}
-        total={data?.sum.total}
+        total={data?.meta.pagination.total}
         setPage={setPage}
         autoScroll={true}
         scrollToTop={440}

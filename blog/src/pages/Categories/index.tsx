@@ -1,8 +1,10 @@
 import { useRequest } from 'ahooks'
+import { useLocalObservable, useObserver } from 'mobx-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '@/components/Layout'
+import { rootStore } from '@/mobx'
 import { DB } from '@/utils/apis/dbConfig'
 import { getData } from '@/utils/apis/getData'
 import { staleTime } from '@/utils/constant'
@@ -19,23 +21,16 @@ interface ClassType {
 
 const Categories: React.FC = () => {
   const navigate = useNavigate()
-
-  const { data, loading } = useRequest(getData, {
-    defaultParams: [DB.Class],
-    retryCount: 3,
-    cacheKey: `categories-${DB.Class}`,
-    staleTime
-  })
-
-  return (
-    <Layout title={Title.categories} loading={loading} className={s.classBox} rows={8}>
-      {data?.data.map((item: ClassType) => (
+  const store = useLocalObservable(() => rootStore)
+  return useObserver(() =>
+    <Layout title={Title.categories} className={s.classBox} rows={8}>
+      {store.articleInfoStore.categories.data.map((item) => (
         <CategoriesBar
           className={s.classItem}
-          key={item._id}
-          content={item.class}
-          num={item.count}
-          onClick={() => navigate(`/artDetail?class=${encodeURIComponent(item.class)}`)}
+          key={item.id}
+          content={item.attributes.categoryName}
+          num={item.attributes.articles.data.length}
+          onClick={() => navigate(`/artDetail?category=${encodeURIComponent(item.attributes.categoryName)}`)}
         />
       ))}
     </Layout>

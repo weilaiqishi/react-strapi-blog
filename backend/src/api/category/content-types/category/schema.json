@@ -14,6 +14,12 @@
     "categoryName": {
       "type": "string",
       "unique": true
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article",
+      "mappedBy": "category"
     }
   }
 }

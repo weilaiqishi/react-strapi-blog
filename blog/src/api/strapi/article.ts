@@ -2,11 +2,10 @@ import lodash from 'lodash-es'
 import qs from 'qs'
 
 import request from '../request'
-import { typePagination, typeStrapiEntity,typeStrapiFind, typeStrapiFindOne } from './type'
+import { typePagination, typeStrapiEntity, typeStrapiFind, typeStrapiFindOne } from './type'
 
 export type typeStrapiEntityArticle = typeStrapiEntity<{
     content: string,
-
     title: string,
     titleEng: string,
     category: {
@@ -24,15 +23,16 @@ export type typeStrapiEntityArticle = typeStrapiEntity<{
         }[]
     }
 }>
-export type typeArticleItem = typeStrapiEntityArticle & {
-    attributes: {
-        category: string,
-        tags: string[]
-    }
-}
+export type typeArticleItem = typeStrapiEntity<{
+    content: string,
+    title: string,
+    titleEng: string,
+    category: string,
+    tags: string[]
+}>
 export const strapiArticleList = async (
-    { page, pageSize, categoryName, tagName }:
-        Partial<{ categoryName: string, tagName: string } & typePagination>
+    { page, pageSize, categoryName, tagName, title, titleEng }:
+        Partial<{ categoryName: string, tagName: string, title: string, titleEng: string } & typePagination>
 ): Promise<typeStrapiFind<typeArticleItem>> => {
     const queryOption = {
         populate: '*',
@@ -42,7 +42,9 @@ export const strapiArticleList = async (
             },
             tags: {
                 tagName: {} as any
-            }
+            },
+            title: {},
+            titleEng: {}
         },
         pagination: {
             page: page || 1,
@@ -55,6 +57,12 @@ export const strapiArticleList = async (
     }
     if (tagName) {
         queryOption.filters.tags.tagName = { $in: [tagName] }
+    }
+    if (title) {
+        queryOption.filters.title = { $containsi: title }
+    }
+    if (titleEng) {
+        queryOption.filters.titleEng = { $containsi: titleEng }
     }
     const query = qs.stringify(queryOption, {
         encodeValuesOnly: true
@@ -75,6 +83,10 @@ export const strapiArticleList = async (
 
             }
         )
+    })
+    console.log('>>> strapiArticleList -> ', {
+        data,
+        meta: res.meta
     })
     return {
         data,

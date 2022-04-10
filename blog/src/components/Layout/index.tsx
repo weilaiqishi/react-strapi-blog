@@ -20,7 +20,7 @@ interface Props {
   loading?: boolean
   isPost?: boolean
   categories?: string
-  date?: number
+  date?: number | string
   rows?: number
 }
 

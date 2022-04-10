@@ -2,6 +2,7 @@ import { useRequest, useSafeState } from 'ahooks'
 import { message } from 'antd'
 import React from 'react'
 
+import * as api from '@/api'
 import Layout from '@/components/Layout'
 import MyPagination from '@/components/MyPagination'
 import { DB } from '@/utils/apis/dbConfig'
@@ -16,21 +17,15 @@ const Articles: React.FC = () => {
   const [page, setPage] = useSafeState(1)
 
   const [isReset, setIsReset] = useSafeState(false)
-  const [where, setWhere] = useSafeState(() => ({}))
+  const [title, setTitle] = useSafeState(() => (''))
 
   const { data, loading, run } = useRequest(
     () =>
-      getWhereOrderPageSum({
-        dbName: DB.Article,
-        where,
-        page,
-        size: detailPostSize,
-        sortKey: 'date'
-      }),
+      api.strapiArticleList({ page, pageSize: detailPostSize, title }),
     {
       retryCount: 3,
       refreshDeps: [page],
-      cacheKey: `Articles-${DB.Article}-${JSON.stringify(where)}-${page}`,
+      cacheKey: `Articles-${DB.Article}-${title}-${page}`,
       staleTime,
       onSuccess: () => {
         if (isReset) {
@@ -46,16 +41,16 @@ const Articles: React.FC = () => {
       <Search
         page={page}
         setPage={setPage}
-        where={where}
-        setWhere={setWhere}
+        title={title}
+        setTitle={setTitle}
         run={run}
         setIsReset={setIsReset}
       />
-      <ArtList articles={data?.articles.data} loading={loading} />
+      <ArtList articles={data?.data} loading={loading} />
       <MyPagination
         current={page}
         defaultPageSize={detailPostSize}
-        total={data?.sum.total}
+        total={data?.meta.pagination.total}
         setPage={setPage}
         autoScroll={true}
         scrollToTop={440}

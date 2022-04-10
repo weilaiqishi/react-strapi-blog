@@ -2,11 +2,10 @@ import useUrlState from '@ahooksjs/use-url-state'
 import { useRequest } from 'ahooks'
 import React from 'react'
 
+import * as api from '@/api'
 import Comment from '@/components/Comment'
 import Layout from '@/components/Layout'
 import MarkDown from '@/components/MarkDown'
-import { DB } from '@/utils/apis/dbConfig'
-import { getWhereData } from '@/utils/apis/getWhereData'
 import { staleTime } from '@/utils/constant'
 
 import CopyRight from './CopyRight'
@@ -15,29 +14,33 @@ import Navbar from './Navbar'
 import PostTags from './PostTags'
 
 const Post: React.FC = () => {
-  const [search] = useUrlState()
+  const [{ title: titleEng }] = useUrlState()
 
-  const { data, loading } = useRequest(getWhereData, {
-    defaultParams: [DB.Article, { titleEng: search.title }],
-    retryCount: 3,
-    cacheKey: `Post-${DB.Article}-${search.title}`,
-    staleTime
-  })
+  const { data, loading } = useRequest(
+    () =>
+      api.strapiArticleList({ page: 1, pageSize: 1, titleEng }),
+    {
+      retryCount: 3,
+      cacheKey: `Post-articles-${titleEng}`,
+      staleTime
+    })
+
+  const article = data?.data[0]
 
   return (
     <Layout
-      title={data?.data[0].title}
+      title={article?.attributes.title}
       loading={loading}
-      categories={data?.data[0].categories}
-      date={data?.data[0].date}
+      categories={article?.attributes.category}
+      date={article?.attributes.createdAt}
       isPost={true}
       rows={14}
     >
-      <MarkDown content={data?.data[0].content} className={s.mb} />
-      <PostTags tags={data?.data[0].tags} />
-      <CopyRight title={data?.data[0].title} titleEng={data?.data[0].titleEng} />
-      <Comment titleEng={search.title} title={data?.data[0].title} />
-      <Navbar content={data?.data[0].content} />
+      <MarkDown content={article?.attributes.content} className={s.mb} />
+      <PostTags tags={article?.attributes.tags} />
+      <CopyRight title={article?.attributes.title} titleEng={article?.attributes.titleEng} />
+      <Comment titleEng={titleEng} title={article?.attributes.title} />
+      <Navbar content={article?.attributes.content} />
     </Layout>
   )
 }

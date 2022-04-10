@@ -1,5 +1,5 @@
 import { useRequest, useSafeState } from 'ahooks'
-import React from 'react'
+import React, { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import * as api from '@/api'

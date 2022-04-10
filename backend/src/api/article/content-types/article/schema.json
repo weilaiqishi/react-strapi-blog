@@ -14,8 +14,9 @@
   "attributes": {
     "category": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "articles"
     },
     "tags": {
       "type": "relation",
