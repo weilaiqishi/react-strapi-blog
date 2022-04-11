@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "imgs",
+  "info": {
+    "singularName": "img",
+    "pluralName": "imgs",
+    "displayName": "img"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "src": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "gallery": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::gallery.gallery"
+    }
+  }
+}

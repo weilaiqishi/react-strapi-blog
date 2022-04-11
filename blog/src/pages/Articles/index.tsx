@@ -6,7 +6,6 @@ import * as api from '@/api'
 import Layout from '@/components/Layout'
 import MyPagination from '@/components/MyPagination'
 import { DB } from '@/utils/apis/dbConfig'
-import { getWhereOrderPageSum } from '@/utils/apis/getWhereOrderPageSum'
 import { detailPostSize, staleTime } from '@/utils/constant'
 
 import { Title } from '../titleConfig'
@@ -37,7 +36,7 @@ const Articles: React.FC = () => {
   )
 
   return (
-    <Layout title={Title.Articles}>
+    <Layout title={Title.Articles} loading={loading}>
       <Search
         page={page}
         setPage={setPage}

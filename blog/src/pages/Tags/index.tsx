@@ -1,40 +1,26 @@
 import { useRequest } from 'ahooks'
+import { useLocalObservable, useObserver } from 'mobx-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '@/components/Layout'
-import { DB } from '@/utils/apis/dbConfig'
-import { getData } from '@/utils/apis/getData'
-import { staleTime } from '@/utils/constant'
+import { rootStore } from '@/mobx'
 
 import { Title } from '../titleConfig'
 import s from './index.scss'
 
-interface TagType {
-  _id: string
-  _openid: string
-  tag: string
-}
-
 const Tags: React.FC = () => {
   const navigate = useNavigate()
-
-  const { data, loading } = useRequest(getData, {
-    defaultParams: [DB.Tag],
-    retryCount: 3,
-    cacheKey: `Tags-${DB.Tag}`,
-    staleTime
-  })
-
+  const store = useLocalObservable(() => rootStore)
   return (
-    <Layout title={Title.Tags} loading={loading} className={s.tagsBox} rows={3}>
-      {data?.data.map((item: TagType) => (
+    <Layout title={Title.Tags} className={s.tagsBox} rows={3}>
+      {store.articleInfoStore.tags.data.map((item) => (
         <span
           className={s.tagItem}
-          key={item._id}
-          onClick={() => navigate(`/artDetail?tag=${encodeURIComponent(item.tag)}`)}
+          key={item.id}
+          onClick={() => navigate(`/artDetail?tag=${encodeURIComponent(item.attributes.tagName)}`)}
         >
-          {item.tag}
+          {item.attributes.tagName}
         </span>
       ))}
     </Layout>

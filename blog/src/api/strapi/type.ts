@@ -27,3 +27,12 @@ export type typeStrapiEntity<T> = {
     }
     id: number
 }
+
+export type typeStrapiFieldSingleImg = {
+    data: {
+        id: number,
+        attributes: {
+            url: string
+        }
+    }
+}

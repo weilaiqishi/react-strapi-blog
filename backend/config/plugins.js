@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = ({ env }) => ({
     //
     graphql: {
         config: {
@@ -12,4 +12,19 @@ module.exports = {
             },
         },
     },
-}
+    upload: {
+        config: {
+            provider: 'strapi-provider-upload-oss',
+            providerOptions: {
+                accessKeyId: env('OSS_ACCESS_KEY_ID'),
+                accessKeySecret: env('OSS_ACCESS_KEY_SECRET'),
+                region: env('OSS_REGION'),
+                bucket: env('OSS_BUCKET'),
+                uploadPath: env('OSS_BASE_DIR'),
+                baseUrl: env('OSS_BASE_URL'),
+                autoThumb: 'no',
+                timeout: 3600,
+            }
+        },
+    },
+})
