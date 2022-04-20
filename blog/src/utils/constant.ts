@@ -27,28 +27,6 @@ export const smallLoadingUrl =
 // 博客运行起始日
 export const time = '2022-04-05 23:23:50'
 
-// // 博客背景图片
-// export const blogBackGroundImgs = [
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/20210818111500.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/20210818111501.png',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/20210818111502.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/20211126190312.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203241558769.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203241604408.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203241627101.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203241627102.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203241627103.jpg'
-// ]
-// // 背景图选择
-// export const imgNum = 7
-
-// // 与模式相符合的背景图
-// export const modeBg = [
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203241627101.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203242228220.jpg',
-//   'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203241627103.jpg'
-// ]
-
 // 数据缓存时间
 export const staleTime = 180000
 export const siteCountStale = 300000
@@ -59,17 +37,14 @@ export const msgSize = 10
 export const detailPostSize = 10
 
 // 个人信息
-export const myName = '飞鸟'
+export const myName = 'Kimeng'
 export const myLink = 'https://lzxjack.top'
-export const myAvatar =
-  'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203302154224.webp'
-export const myDescr = '一只平凡的鸟罢了。'
-export const myEmail = '965555169@qq.com'
-export const adminUid = 'dbee9976b3c14448a06f2006a4795cf2'
-export const QQ = '965555169'
+export const myAvatar = cardUrl
+export const myDescr = '害~虫~'
+export const myEmail = '925577835@qq.com'
+export const QQ = '925577835'
 
-export const myAvatar70 =
-  'https://cdn.jsdelivr.net/gh/lzxjack/cdn/img/202203302156259.webp'
+export const myAvatar70 = cardUrl
 
 // 默认头像集合（若用户没获取QQ头像，则随机显示此数组中的头像）
 export const defaultCommentAvatarArr = [

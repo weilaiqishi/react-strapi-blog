@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/member-ordering': 0,
     '@typescript-eslint/consistent-type-definitions': "off",
+    '@typescript-eslint/consistent-type-assertions': 'off',
     'react/jsx-no-useless-fragment': 0,
     'no-param-reassign': 0,
     "react/jsx-uses-react": "off",

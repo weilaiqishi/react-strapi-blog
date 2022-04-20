@@ -5,7 +5,6 @@ import React from 'react'
 import * as api from '@/api'
 import Layout from '@/components/Layout'
 import MyPagination from '@/components/MyPagination'
-import { DB } from '@/utils/apis/dbConfig'
 import { detailPostSize, staleTime } from '@/utils/constant'
 
 import { Title } from '../titleConfig'
@@ -24,7 +23,7 @@ const Articles: React.FC = () => {
     {
       retryCount: 3,
       refreshDeps: [page],
-      cacheKey: `Articles-${DB.Article}-${title}-${page}`,
+      cacheKey: `Articles-articles-${title}-${page}`,
       staleTime,
       onSuccess: () => {
         if (isReset) {

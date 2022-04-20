@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "singularName": "comment",
+    "pluralName": "comments",
+    "displayName": "comment"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nickName": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "email": {
+      "type": "string"
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "replyId": {
+      "type": "biginteger"
+    }
+  }
+}

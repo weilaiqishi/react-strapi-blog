@@ -62,7 +62,7 @@ export const strapiArticleList = async (
         queryOption.filters.title = { $containsi: title }
     }
     if (titleEng) {
-        queryOption.filters.titleEng = { $containsi: titleEng }
+        queryOption.filters.titleEng = { $eq: titleEng }
     }
     const query = qs.stringify(queryOption, {
         encodeValuesOnly: true

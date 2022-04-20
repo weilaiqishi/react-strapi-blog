@@ -1,6 +1,7 @@
 import { useRequest, useSafeState } from 'ahooks'
 import React from 'react'
 
+import * as api from '@/api'
 import { DB } from '@/utils/apis/dbConfig'
 import { getWhereOrderData } from '@/utils/apis/getWhereOrderData'
 import { _ } from '@/utils/cloudBase'
@@ -86,6 +87,16 @@ const Comment: React.FC<Props> = ({
       retryCount: 3
     }
   )
+
+  const { data, loading, run } = useRequest(
+    () =>
+      api.strapiCommentList({ page, pageSize: msgSize, titleEng }),
+    {
+      retryCount: 3,
+      refreshDeps: [page]
+    }
+  )
+  console.log('comment -> ', data)
 
   return (
     <div>

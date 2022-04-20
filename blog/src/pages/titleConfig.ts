@@ -4,7 +4,6 @@ export enum Title {
   categories = '分类',
   Tags = '标签',
   Gallery = '我的图库',
-  Say = '自言自语',
   Msg = '留言板',
   Link = '友情链接',
   Show = '小作品',

@@ -22,7 +22,6 @@ import { DB } from '@/utils/apis/dbConfig'
 import { setData } from '@/utils/apis/setData'
 import { auth } from '@/utils/cloudBase'
 import {
-  adminUid,
   avatarArrLen,
   defaultCommentAvatarArr,
   emailApi,
@@ -164,8 +163,7 @@ const EditBox: React.FC<Props> = ({
 
   const adminLogined = useMemoizedFn(() => {
     if (!auth.hasLoginState()) return false
-    if (auth.currentUser?.uid === adminUid) return true
-    return false
+    return true
   })
 
   useMount(() => {
