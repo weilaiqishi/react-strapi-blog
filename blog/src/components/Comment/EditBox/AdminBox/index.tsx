@@ -13,7 +13,6 @@ interface Props {
   setShowAdmin?: Function
   setName?: Function
   setEmail?: Function
-  setLink?: Function
   setAvatar?: Function
 }
 
@@ -22,7 +21,6 @@ const AdminBox: React.FC<Props> = ({
   setShowAdmin,
   setName,
   setEmail,
-  setLink,
   setAvatar
 }) => {
   const pwdRef = useRef(null)
@@ -41,7 +39,6 @@ const AdminBox: React.FC<Props> = ({
       message.success('登陆成功！')
       setName?.(myName)
       setEmail?.(myEmail)
-      setLink?.(myLink)
       setAvatar?.(myAvatar70)
       hideAdmin()
     } else {

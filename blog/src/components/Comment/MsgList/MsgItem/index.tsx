@@ -18,11 +18,11 @@ dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
 
 interface Props {
-  _id?: string
+  _id?: number
   avatar?: string
   link?: string
   name?: string
-  date?: number
+  date?: string
   content?: string
   email?: string
   isReply?: boolean
@@ -33,7 +33,6 @@ interface Props {
 const MsgItem: React.FC<Props> = ({
   _id,
   avatar,
-  link,
   name,
   date,
   content,
@@ -69,15 +68,6 @@ const MsgItem: React.FC<Props> = ({
 
         <div className={s.contentBox}>
           <div className={s.usrInfo}>
-            <a
-              href={link}
-              target={link ? '_blank' : '_self'}
-              rel='noreferrer'
-              className={s.name}
-              style={{ cursor: link ? 'pointer' : 'default' }}
-            >
-              {name}
-            </a>
             {email === myEmail && <span className={s.flag}>站长</span>}
             <span className={s.date}>{dayjs(date).fromNow()}</span>
           </div>

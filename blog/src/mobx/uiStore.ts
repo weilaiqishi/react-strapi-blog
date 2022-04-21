@@ -7,10 +7,6 @@ export const uiStore = {
     setName(name: string) {
         this.name = name
     },
-    link: '',
-    setLink(link: string) {
-        this.link = link
-    },
     email: '',
     setEmail(email: string) {
         this.email = email

@@ -71,7 +71,7 @@ export const strapiArticleList = async (
         url: `/api/articles?${query}`
     })
     const data = res.data.map(item => {
-        const category = item.attributes.category.data.attributes.categoryName
+        const category = item.attributes.category.data?.attributes.categoryName
         const tags = item.attributes.tags.data.map(tagRaw => tagRaw.attributes.tagName)
         return lodash.merge(
             item,

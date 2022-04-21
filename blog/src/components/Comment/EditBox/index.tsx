@@ -16,18 +16,16 @@ import PubSub from 'pubsub-js'
 import React, { useEffect, useRef } from 'react'
 import sanitizeHtml from 'sanitize-html'
 
+import * as api from '@/api'
 import { rootStore } from '@/mobx'
 import { axiosAPI } from '@/utils/apis/axios'
-import { DB } from '@/utils/apis/dbConfig'
-import { setData } from '@/utils/apis/setData'
-import { auth } from '@/utils/cloudBase'
 import {
   avatarArrLen,
   defaultCommentAvatarArr,
   emailApi,
+  messageBoard,
   myAvatar70,
   myEmail,
-  myLink,
   myName,
   QQ
 } from '@/utils/constant'
@@ -46,7 +44,7 @@ interface Props {
   closeReply?: Function
   className?: string
   replyName?: string
-  replyId?: string
+  replyId?: number
   title?: string
   ownerEmail?: string
 }
@@ -74,7 +72,6 @@ const EditBox: React.FC<Props> = ({
 
   const [localName, setLocalName] = useLocalStorageState('name')
   const [localEmail, setLocalEmail] = useLocalStorageState('email')
-  const [localLink, setLocalLink] = useLocalStorageState('link')
   const [localAvatar, setLocalAvatar] = useLocalStorageState('avatar')
 
   const validateConfig = {
@@ -87,11 +84,6 @@ const EditBox: React.FC<Props> = ({
       check: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
       content: store.uiStore.email,
       errText: '请输入正确的邮箱地址！'
-    },
-    link: {
-      check: /^$|^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/,
-      content: store.uiStore.link,
-      errText: '请输入正确的url，或不填！'
     },
     text: {
       check: /^[\s\S]*.*[^\s][\s\S]*$/,
@@ -116,8 +108,8 @@ const EditBox: React.FC<Props> = ({
       !adminLogined() &&
       (store.uiStore.name === myName ||
         store.uiStore.name === QQ ||
-        store.uiStore.email === myEmail ||
-        store.uiStore.link?.indexOf(myLink) !== -1)
+        store.uiStore.email === myEmail
+      )
     ) {
       message.warning('未登录不可以使用管理员账户（昵称、邮箱、网址）哦~')
       throw new Error('Not Admin')
@@ -128,22 +120,17 @@ const EditBox: React.FC<Props> = ({
     try {
       validate()
       checkAdmin()
-
-      const config = {
-        DBName: DB.Msg,
-        name: sanitizeHtml(store.uiStore.name!),
+      // @ts-ignore
+      const isTrue = await api.strapiCommentPost({
+        nickName: sanitizeHtml(store.uiStore.name!),
         email: sanitizeHtml(store.uiStore.email!),
-        link: sanitizeHtml(store.uiStore.link!),
         content: sanitizeHtml(text),
-        date: new Date().getTime(),
         avatar: store.uiStore.avatar
           ? store.uiStore.avatar
           : defaultCommentAvatarArr[getRandomNum(0, avatarArrLen - 1)],
-        postTitle: search.title || '',
-        replyId: replyId || ''
-      }
-
-      const isTrue = await setData(config)
+        replyId: replyId || null,
+        titleEng: search.title || messageBoard
+      })
 
       if (isTrue) {
         if (isReply) {
@@ -162,8 +149,9 @@ const EditBox: React.FC<Props> = ({
   })
 
   const adminLogined = useMemoizedFn(() => {
-    if (!auth.hasLoginState()) return false
     return true
+    // if (!auth.hasLoginState()) return false
+    // return true
   })
 
   useMount(() => {
@@ -171,13 +159,11 @@ const EditBox: React.FC<Props> = ({
       // 管理员已登录
       store.uiStore.setName(myName)
       store.uiStore.setEmail(myEmail)
-      store.uiStore.setLink(myLink)
       store.uiStore.setAvatar(myAvatar70)
       return
     }
     localName && localName !== myName && store.uiStore.setName(localName)
     localEmail && localEmail !== myEmail && store.uiStore.setEmail(localEmail)
-    localLink && localLink.indexOf(myLink) === -1 && store.uiStore.setLink(localLink)
     localAvatar && store.uiStore.setAvatar(localAvatar)
   })
 
@@ -193,8 +179,8 @@ const EditBox: React.FC<Props> = ({
       store.uiStore.setName('')
       return
     }
-    if (regQQ.test(name!)) {
-      const avatarUrl = `https://q1.qlogo.cn/g?b=qq&nk=${name}&s=100`
+    if (regQQ.test(store.uiStore.name!)) {
+      const avatarUrl = `https://q1.qlogo.cn/g?b=qq&nk=${store.uiStore.name}&s=100`
       const QQEmail = `${name}@qq.com`
       store.uiStore.setEmail(QQEmail)
       store.uiStore.setAvatar(avatarUrl)
@@ -283,7 +269,7 @@ const EditBox: React.FC<Props> = ({
     }
   }, [])
 
-  return (
+  return useObserver(() =>
     <div className={classNames(s.editBox, className)}>
       {isReply && (
         <div className={s.replyNameBox}>
@@ -296,7 +282,6 @@ const EditBox: React.FC<Props> = ({
           setShowAdmin={setShowAdmin}
           setName={store.uiStore.setName.bind(store)}
           setEmail={store.uiStore.setEmail.bind(store)}
-          setLink={store.uiStore.setLink.bind(store)}
           setAvatar={store.uiStore.setAvatar.bind(store)}
         />
 
@@ -332,17 +317,6 @@ const EditBox: React.FC<Props> = ({
                 value={store.uiStore.email}
                 onChange={e => store.uiStore.setEmail(e.target.value)}
                 onBlur={e => setLocalEmail(e.target.value)}
-              />
-            </div>
-            <div className={classNames(s.inputInfo, s.flex3)}>
-              <div className={s.inputKey}>网址</div>
-              <input
-                type='text'
-                className={s.inputValue}
-                placeholder='选填'
-                value={store.uiStore.link}
-                onChange={e => store.uiStore.setLink(e.target.value)}
-                onBlur={e => setLocalLink(e.target.value)}
               />
             </div>
           </div>
