@@ -32,7 +32,6 @@ import {
 import { getRandomNum } from '@/utils/function'
 import { ADD_EMOJI } from '@/utils/pubsub'
 
-import AdminBox from './AdminBox'
 import Emoji from './Emoji'
 import s from './index.scss'
 import PreShow from './PreShow'
@@ -64,8 +63,6 @@ const EditBox: React.FC<Props> = ({
   const [search] = useUrlState()
 
   const nameRef = useRef(null)
-
-  const [showAdmin, setShowAdmin] = useSafeState(false)
   const [showPre, { toggle: togglePre, setFalse: closePre }] = useBoolean(false)
 
   const [text, setText] = useSafeState('')
@@ -103,23 +100,9 @@ const EditBox: React.FC<Props> = ({
     })
   })
 
-  const checkAdmin = useMemoizedFn(() => {
-    if (
-      !adminLogined() &&
-      (store.uiStore.name === myName ||
-        store.uiStore.name === QQ ||
-        store.uiStore.email === myEmail
-      )
-    ) {
-      message.warning('未登录不可以使用管理员账户（昵称、邮箱、网址）哦~')
-      throw new Error('Not Admin')
-    }
-  })
-
   const submit = useMemoizedFn(async () => {
     try {
       validate()
-      checkAdmin()
       // @ts-ignore
       const isTrue = await api.strapiCommentPost({
         nickName: sanitizeHtml(store.uiStore.name!),
@@ -148,51 +131,27 @@ const EditBox: React.FC<Props> = ({
     } catch { }
   })
 
-  const adminLogined = useMemoizedFn(() => {
-    return true
-    // if (!auth.hasLoginState()) return false
-    // return true
-  })
 
   useMount(() => {
-    if (adminLogined()) {
-      // 管理员已登录
-      store.uiStore.setName(myName)
-      store.uiStore.setEmail(myEmail)
-      store.uiStore.setAvatar(myAvatar70)
-      return
-    }
-    localName && localName !== myName && store.uiStore.setName(localName)
-    localEmail && localEmail !== myEmail && store.uiStore.setEmail(localEmail)
+    localName && store.uiStore.setName(localName)
+    localEmail && store.uiStore.setEmail(localEmail)
     localAvatar && store.uiStore.setAvatar(localAvatar)
   })
 
-  const handleName = useMemoizedFn(() => {
+  const handleQQ = useMemoizedFn(() => {
     const regQQ = /[1-9][0-9]{4,11}/
-    if (store.uiStore.name === 'admin') {
-      setShowAdmin(true)
-      store.uiStore.setName('')
-      return
-    }
-    if (!adminLogined() && (store.uiStore.name === myName || store.uiStore.name === QQ)) {
-      message.warning('未登录不可以使用管理员账户哦~')
-      store.uiStore.setName('')
-      return
-    }
-    if (regQQ.test(store.uiStore.name!)) {
-      const avatarUrl = `https://q1.qlogo.cn/g?b=qq&nk=${store.uiStore.name}&s=100`
-      const QQEmail = `${name}@qq.com`
+    if (regQQ.test(store.uiStore.QQ)) {
+      const avatarUrl = `https://q1.qlogo.cn/g?b=qq&nk=${store.uiStore.QQ}&s=100`
+      const QQEmail = `${store.uiStore.QQ}@qq.com`
       store.uiStore.setEmail(QQEmail)
       store.uiStore.setAvatar(avatarUrl)
       setLocalEmail(QQEmail)
       setLocalAvatar(avatarUrl)
-      store.uiStore.setName('')
       return
     }
-    setLocalName(name)
   })
 
-  useKeyPress(13, handleName, {
+  useKeyPress(13, handleQQ, {
     target: nameRef
   })
 
@@ -277,14 +236,6 @@ const EditBox: React.FC<Props> = ({
         </div>
       )}
       <div className={s.flex}>
-        <AdminBox
-          showAdmin={showAdmin}
-          setShowAdmin={setShowAdmin}
-          setName={store.uiStore.setName.bind(store)}
-          setEmail={store.uiStore.setEmail.bind(store)}
-          setAvatar={store.uiStore.setAvatar.bind(store)}
-        />
-
         <div className={s.avatarBoxCol}>
           <div className={s.avatarBox}>
             {store.uiStore.avatar ? (
@@ -297,15 +248,27 @@ const EditBox: React.FC<Props> = ({
         <div className={s.editInputBox}>
           <div className={s.inputBox}>
             <div className={classNames(s.inputInfo, s.flex2)}>
-              <div className={s.inputKey}>昵称</div>
+              <div className={s.inputKey}>QQ号</div>
               <input
                 ref={nameRef}
                 type='text'
                 className={s.inputValue}
                 placeholder='QQ号'
+                value={store.uiStore.QQ}
+                onChange={e => store.uiStore.setQQ(e.target.value)}
+                onBlur={handleQQ}
+              />
+            </div>
+            <div className={classNames(s.inputInfo, s.flex2)}>
+              <div className={s.inputKey}>昵称</div>
+              <input
+                ref={nameRef}
+                type='text'
+                className={s.inputValue}
+                placeholder='昵称'
                 value={store.uiStore.name}
                 onChange={e => store.uiStore.setName(e.target.value)}
-                onBlur={handleName}
+                onBlur={e => setLocalName(e.target.value)}
               />
             </div>
             <div className={classNames(s.inputInfo, s.flex3)}>

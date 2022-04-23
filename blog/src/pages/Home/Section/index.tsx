@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import * as api from '@/api'
 import MyPagination from '@/components/MyPagination'
-import { homeSize, staleTime } from '@/utils/constant'
+import { homeSize, messageBoard,staleTime } from '@/utils/constant'
 
 import s from './index.scss'
 import PostCard from './PostCard'
@@ -26,6 +26,14 @@ const Section: React.FC = () => {
 
   console.log('Section-articles data -> ', data)
 
+  function toArticleDetailOrMsg (titleEng) {
+    if (titleEng === messageBoard) {
+      navigate(`/msg`)
+      return
+    }
+    navigate(`/post?title=${encodeURIComponent(titleEng)}`)
+  }
+
   return (
     <section className={s.section}>
       {data?.data?.map(({ id, attributes: { title, content, createdAt, tags, titleEng } }) => (
@@ -36,7 +44,7 @@ const Section: React.FC = () => {
           date={createdAt}
           tags={tags}
           loading={loading}
-          onClick={() => navigate(`/post?title=${encodeURIComponent(titleEng)}`)}
+          onClick={() => toArticleDetailOrMsg(titleEng)}
         />
       ))}
       <MyPagination

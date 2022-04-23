@@ -3,6 +3,10 @@ export const uiStore = {
     setNavShow(isShow: boolean) {
         this.navShow = isShow
     },
+    QQ: '',
+    setQQ(QQ: string) {
+        this.QQ = QQ
+    },
     name: '',
     setName(name: string) {
         this.name = name
