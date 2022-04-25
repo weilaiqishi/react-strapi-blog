@@ -62,8 +62,4 @@ export const defaultCommentAvatarArr = [
 
 export const avatarArrLen = defaultCommentAvatarArr.length
 
-// 评论回复时，发送邮件提醒的API地址
-export const emailApi =
-  ''
-
 export const messageBoard = 'message board'

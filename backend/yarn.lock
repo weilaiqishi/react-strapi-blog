@@ -1901,6 +1901,14 @@
     url-join "4.0.1"
     uuid "^3.1.0"
 
+"@strapi/provider-email-nodemailer@^4.1.8":
+  version "4.1.8"
+  resolved "https://registry.npmmirror.com/@strapi/provider-email-nodemailer/-/provider-email-nodemailer-4.1.8.tgz#7fe6ed17bfeb6f52b9bb7359a7018834102a30b6"
+  integrity sha512-koQZxtOTTOqQIg5MnP7FAgV4GyOObSWrKY1y6dHja8EP+wIcnQnEHX5+2Dnd3a5YRWyIqL4C5yo+wsAKSUFZPA==
+  dependencies:
+    lodash "4.17.21"
+    nodemailer "6.5.0"
+
 "@strapi/provider-email-sendmail@4.1.7":
   version "4.1.7"
   resolved "https://registry.npmmirror.com/@strapi/provider-email-sendmail/-/provider-email-sendmail-4.1.7.tgz#1a0924dc46941c7bd2883a3f5598818609e314bd"
@@ -7960,6 +7968,11 @@ nodemailer-shared@1.1.0:
   integrity sha512-68xW5LSyPWv8R0GLm6veAvm7E+XFXkVgvE3FW0FGxNMMZqMkPFeGDVALfR1DPdSfcoO36PnW7q5AAOgFImEZGg==
   dependencies:
     nodemailer-fetch "1.6.0"
+
+nodemailer@6.5.0:
+  version "6.5.0"
+  resolved "https://registry.npmmirror.com/nodemailer/-/nodemailer-6.5.0.tgz#d12c28d8d48778918e25f1999d97910231b175d9"
+  integrity sha512-Tm4RPrrIZbnqDKAvX+/4M+zovEReiKlEXWDzG4iwtpL9X34MJY+D5LnQPH/+eghe8DLlAVshHAJZAZWBGhkguw==
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"

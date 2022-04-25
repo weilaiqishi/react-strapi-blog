@@ -22,7 +22,6 @@ import { axiosAPI } from '@/utils/apis/axios'
 import {
   avatarArrLen,
   defaultCommentAvatarArr,
-  emailApi,
   messageBoard,
   myAvatar70,
   myEmail,
@@ -119,12 +118,12 @@ const EditBox: React.FC<Props> = ({
         if (isReply) {
           closeReply?.()
           replyRun?.()
-          store.uiStore.email !== ownerEmail && informUser()
-          informAdminReply()
+          store.uiStore.email !== ownerEmail && message.success(`已通知${search.title ? '评论' : '留言'}者！`)
         } else {
           msgRun?.()
-          informAdminMsg()
+          message.success(`发布${search.title ? '评论' : '留言'}成功！`)
         }
+        setText('')
       } else {
         message.error('发布失败，请重试！')
       }
@@ -162,62 +161,6 @@ const EditBox: React.FC<Props> = ({
     }
     togglePre()
   })
-
-  const { run: informAdminMsg } = useRequest(
-    () =>
-      axiosAPI(emailApi, 'POST', {
-        flag: 0,
-        name,
-        search: search.title || '',
-        content: text,
-        title
-      }),
-    {
-      manual: true,
-      onSuccess: () => {
-        setText('')
-        message.success(`发布${search.title ? '评论' : '留言'}成功！`)
-      }
-    }
-  )
-
-  const { run: informAdminReply } = useRequest(
-    () =>
-      axiosAPI(emailApi, 'POST', {
-        flag: 1,
-        owner: replyName,
-        name,
-        search: search.title || '',
-        content: text,
-        title
-      }),
-    {
-      manual: true,
-      onSuccess: () => {
-        setText('')
-        message.success('已通知站长！')
-      }
-    }
-  )
-
-  const { run: informUser } = useRequest(
-    () =>
-      axiosAPI(emailApi, 'POST', {
-        flag: 2,
-        owner: replyName,
-        email: ownerEmail,
-        name,
-        search: search.title || '',
-        content: text,
-        title
-      }),
-    {
-      manual: true,
-      onSuccess: () => {
-        message.success(`已通知${search.title ? '评论' : '留言'}者！`)
-      }
-    }
-  )
 
   useEffect(() => {
     const subEmoji = PubSub.subscribe(ADD_EMOJI, (_, emoji) => {
