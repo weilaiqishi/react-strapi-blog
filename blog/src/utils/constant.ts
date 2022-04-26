@@ -1,15 +1,7 @@
-// 博客的云环境ID
-export const env = 'react-blog-admin-8fo571wf24c87f9'
-export const blogAdminUrl =
-  'https://react-blog-admin-8fo571wf24c87f9-1304393382.tcloudbaseapp.com/'
-// siteCount ID
-export const count_id = 'cd045e756100126d005169f014931c65'
-
-
+export const blogAdminUrl = ''
 
 export const icp_site = 'https://beian.miit.gov.cn/#/Integrated/index'
-export const icp_no = '浙ICP备2020043821号-1'
-
+export const icp_no = ''
 
 export const siteTitle = 'Kimeng Blog'
 

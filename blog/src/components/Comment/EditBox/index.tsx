@@ -18,7 +18,6 @@ import sanitizeHtml from 'sanitize-html'
 
 import * as api from '@/api'
 import { rootStore } from '@/mobx'
-import { axiosAPI } from '@/utils/apis/axios'
 import {
   avatarArrLen,
   defaultCommentAvatarArr,

@@ -15,7 +15,7 @@ const Placehold: React.FC<Props> = ({ msgCount, isMsg }) => {
           {msgCount}条{isMsg ? '留言' : '评论'}
         </div>
       ) : (
-        <div className={s.noMag}>暂时没有{isMsg ? '留言' : '评论'}&nbsp~</div>
+        <div className={s.noMag}>暂时没有{isMsg ? '留言' : '评论'}&nbsp;~</div>
       )}
     </>
   )

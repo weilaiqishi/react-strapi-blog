@@ -3,8 +3,6 @@ import React from 'react'
 
 import * as api from '@/api'
 import Card from '@/components/Card'
-import { DB } from '@/utils/apis/dbConfig'
-import { getOrderData } from '@/utils/apis/getOrderData'
 import { staleTime } from '@/utils/constant'
 
 import s from './index.scss'

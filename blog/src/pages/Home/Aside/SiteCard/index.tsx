@@ -3,7 +3,6 @@ import React from 'react'
 
 import * as api from '@/api'
 import Card from '@/components/Card'
-import { DB } from '@/utils/apis/dbConfig'
 import { siteCountStale } from '@/utils/constant'
 
 import s from './index.scss'

@@ -3,8 +3,6 @@ import { useKeyPress, useMemoizedFn, useSafeState } from 'ahooks'
 import { message } from 'antd'
 import React, { useRef } from 'react'
 
-import { db } from '@/utils/cloudBase'
-
 import s from './index.scss'
 
 interface Props {

@@ -2,9 +2,7 @@ export const useLinkList = () => {
   const navArr = [
     { name: '图库', to: '/gallery' },
     { name: '留言', to: '/msg' },
-    { name: '友链', to: '/link' },
-    { name: '作品', to: '/show' },
-    { name: '关于', to: '/about' }
+    { name: '友链', to: '/link' }
   ]
   const secondNavArr = [
     { name: '找文章', to: '/articles' },
@@ -19,9 +17,7 @@ export const useLinkList = () => {
     { name: '标签', to: '/tags' },
     { name: '图库', to: '/gallery' },
     { name: '留言', to: '/msg' },
-    { name: '友链', to: '/link' },
-    { name: '作品', to: '/show' },
-    { name: '关于', to: '/about' }
+    { name: '友链', to: '/link' }
   ]
 
   return {
