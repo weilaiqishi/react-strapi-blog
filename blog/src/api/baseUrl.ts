@@ -1,1 +1,1 @@
-export const baseURL = 'http://localhost:1337'
+export const baseURL = process.env.baseUrl || 'http://localhost:1337'

@@ -1,3 +1,4 @@
+import { messageBoard } from '@/utils/constant'
 export const uiStore = {
     navShow: true,
     setNavShow(isShow: boolean) {
@@ -22,5 +23,13 @@ export const uiStore = {
     mode: 0,
     setMode(mode: number) {
         this.mode = mode
+    },
+
+    toArticleDetailOrMsg(titleEng, navigate) {
+        if (titleEng === messageBoard) {
+            navigate(`/msg`)
+            return
+        }
+        navigate(`/post?title=${encodeURIComponent(titleEng)}`)
     }
 }

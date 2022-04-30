@@ -1,16 +1,19 @@
 import { useRequest, useSafeState } from 'ahooks'
+import { useLocalObservable, useObserver } from 'mobx-react'
 import React, { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import * as api from '@/api'
 import MyPagination from '@/components/MyPagination'
-import { homeSize, messageBoard,staleTime } from '@/utils/constant'
+import { rootStore } from '@/mobx'
+import { homeSize, staleTime } from '@/utils/constant'
 
 import s from './index.scss'
 import PostCard from './PostCard'
 
 
 const Section: React.FC = () => {
+  const store = useLocalObservable(() => rootStore)
   const navigate = useNavigate()
   const [page, setPage] = useSafeState(1)
 
@@ -26,14 +29,6 @@ const Section: React.FC = () => {
 
   console.log('Section-articles data -> ', data)
 
-  function toArticleDetailOrMsg (titleEng) {
-    if (titleEng === messageBoard) {
-      navigate(`/msg`)
-      return
-    }
-    navigate(`/post?title=${encodeURIComponent(titleEng)}`)
-  }
-
   return (
     <section className={s.section}>
       {data?.data?.map(({ id, attributes: { title, content, createdAt, tags, titleEng } }) => (
@@ -44,7 +39,7 @@ const Section: React.FC = () => {
           date={createdAt}
           tags={tags}
           loading={loading}
-          onClick={() => toArticleDetailOrMsg(titleEng)}
+          onClick={() => store.uiStore.toArticleDetailOrMsg(titleEng, navigate)}
         />
       ))}
       <MyPagination

@@ -15,7 +15,7 @@ module.exports = ({ env }) => ([
     config: {
       enabled: true,
       header: '*',
-      origin: ['http://localhost:8080', 'http://localhost:1337', env('HOST_PROD', 'example.com')]
+      origin: ['http://localhost:8080', 'http://localhost:1337', env('URL_STRAPI_PROD', 'URL_STRAPI_PROD.com'), env('URL_BLOG_PROD', 'URL_BLOG_PROD.com')]
     }
   },
   'strapi::poweredBy',

@@ -11,20 +11,21 @@ module.exports = merge(common, {
   devtool: 'eval-cheap-module-source-map',
   output: {
     path: path.resolve(ROOT_PATH, './build'),
-    filename: 'js/[name].js'
+    filename: 'js/[name].js',
+    publicPath: '/app'
   },
   devServer: {
     host: SERVER_HOST,
     port: SERVER_PORT,
     compress: true, // gzip压缩
-    open: true, // 自动打开默认浏览器
     hot: true, // 启用服务热替换配置
     client: {
       logging: 'warn', // warn以上的信息，才会打印
       overlay: true // 当出现编译错误或警告时，在浏览器中显示全屏覆盖
     },
     // 解决路由跳转404问题
-    historyApiFallback: true
+    historyApiFallback: true,
+    open: ['/app']
   },
   plugins: [],
 

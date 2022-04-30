@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 const WebpackBar = require('webpackbar');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -153,7 +154,10 @@ module.exports = {
     // 自动删除上一次打包的产物
     new CleanWebpackPlugin(),
     // 将antd中的moment.js替换为day.js
-    new AntdDayjsWebpackPlugin()
+    new AntdDayjsWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.baseUrl': `'${process.env.baseUrl}'`
+    })
   ],
 
   module: {
