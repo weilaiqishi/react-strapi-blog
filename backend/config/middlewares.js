@@ -1,4 +1,4 @@
-module.exports = [
+module.exports = ({ env }) => ([
   'strapi::errors',
   {
     name: 'strapi::security',
@@ -15,7 +15,7 @@ module.exports = [
     config: {
       enabled: true,
       header: '*',
-      origin: ['http://localhost:8080', 'http://localhost:1337']
+      origin: ['http://localhost:8080', 'http://localhost:1337', env('HOST_PROD', 'example.com')]
     }
   },
   'strapi::poweredBy',
@@ -25,4 +25,4 @@ module.exports = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-]
+])

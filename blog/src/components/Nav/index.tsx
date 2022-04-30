@@ -16,7 +16,7 @@ import {
 import { Drawer } from 'antd'
 import classNames from 'classnames'
 import { useLocalObservable, useObserver } from 'mobx-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 import { rootStore } from '@/mobx'
@@ -52,7 +52,7 @@ const Nav: React.FC<Props> = () => {
     { target: document.body }
   )
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setLocalMode(store.uiStore.mode)
     for (const type of modeMapArr) {
       bodyStyle.setProperty(type, modeMap[type as keyof typeof modeMap][store.uiStore.mode])

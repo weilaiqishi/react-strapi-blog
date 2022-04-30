@@ -7,7 +7,8 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "compress": "ts-node ./CD/compressForDocker.ts"
   },
   "dependencies": {
     "@strapi/plugin-graphql": "~4.1.7",
@@ -15,6 +16,7 @@
     "@strapi/plugin-users-permissions": "4.1.7",
     "@strapi/provider-email-nodemailer": "^4.1.8",
     "@strapi/strapi": "4.1.7",
+    "compressing": "^1.5.1",
     "mysql": "2.18.1",
     "strapi-provider-upload-oss": "^0.1.6"
   },
