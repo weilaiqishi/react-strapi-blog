@@ -1,7 +1,7 @@
 export const blogAdminUrl = ''
 
 export const icp_site = 'https://beian.miit.gov.cn/#/Integrated/index'
-export const icp_no = ''
+export const icp_no = '粤ICP备2021024126号-1'
 
 export const siteTitle = 'Kimeng Blog'
 
