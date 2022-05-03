@@ -30,7 +30,7 @@ export const detailPostSize = 10
 
 // 个人信息
 export const myName = 'Kimeng'
-export const myLink = 'https://lzxjack.top'
+export const myLink = 'https://miku01.cn/Blog/index.html'
 export const myAvatar = cardUrl
 export const myDescr = '害~虫~'
 export const myEmail = '925577835@qq.com'

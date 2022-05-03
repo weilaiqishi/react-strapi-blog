@@ -78,7 +78,7 @@ URL_BLOG_PROD=线上博客前端地址
 
 ### 启动前端
 
-1. 全局安装rush。执行命令 `npm install -g @microsoft/rush`。
+1. 全局安装rush。执行命令 `npm install -g @microsoft/rush;npm i pnpm -g`。
 本项目[参考教程](https://juejin.cn/post/7034475702309093407)使用rush去做monorepo，但是在strapi项目上运行不顺利，遂只管理了前端项目。
 
 2. 依赖安装。进入blog目录，执行命令 `rush update`。
