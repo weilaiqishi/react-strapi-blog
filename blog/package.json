@@ -11,7 +11,6 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./scripts/config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config ./scripts/config/webpack.prod.js",
     "eslint": "eslint ./src/** --ignore-pattern *.jpg --ignore-pattern *.webp --ignore-pattern *.scss --ignore-pattern *.ttf --no-error-on-unmatched-pattern --quiet",
-    "commitlint": "git cz",
     "start": "node start.js"
   },
   "browserslist": [
@@ -20,12 +19,6 @@
     "ie >= 9",
     "not op_mini all"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run eslint",
-      "commit-msg": "npm run commitlint"
-    }
-  },
   "dependencies": {
     "@ahooksjs/use-url-state": "^3.1.13",
     "@ant-design/icons": "4.7.0",
