@@ -1,6 +1,9 @@
 {
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "4.3.8",
+    "@commitlint/cli": "16.2.1",
+    "@commitlint/config-conventional": "16.2.1"
   },
   "config": {
     "commitizen": {
@@ -9,7 +12,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run ./blog/eslint",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
