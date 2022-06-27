@@ -10,11 +10,6 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "scripts": {
     "installRush": "npm i -g @microsoft/rush",
     "i": "rush update && pnpm i",
