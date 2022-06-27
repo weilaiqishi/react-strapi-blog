@@ -16,6 +16,8 @@
     }
   },
   "scripts": {
+    "installRush": "npm i -g @microsoft/rush",
+    "i": "rush update && pnpm i",
     "commit": "git-cz"
   }
 }

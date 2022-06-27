@@ -10,7 +10,7 @@ export const modeMap = {
   '--codeBg': ['rgb(43, 57, 109)', 'rgb(43, 57, 109)', 'rgb(43, 32, 59)'],
   '--textColor2': ['rgb(53, 89, 117)', 'rgb(74, 79, 106)', 'rgb(177, 180, 211)'],
   '--inlineCode': ['rgb(53, 195, 171)', 'rgb(138, 215, 237)', 'rgb(215, 254, 252)'],
-  '--hoverColor': ['rgb(50, 63, 97)', 'rgb(223, 232, 228)', 'rgb(229, 176, 193)']
+  '--hoverColor': ['rgb(115, 216, 248)', 'rgb(223, 232, 228)', 'rgb(229, 176, 193)']
 };
 
 export const modeMapArr = Object.keys(modeMap);
