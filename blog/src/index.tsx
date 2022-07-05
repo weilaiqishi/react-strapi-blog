@@ -6,8 +6,7 @@ import {
   useQuery
 } from "@apollo/client"
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 
 import { rootStore } from '@/mobx'
@@ -19,13 +18,12 @@ import App from './App'
 if (module?.hot) {
   module.hot.accept()
 }
-ReactDOM.render(
+createRoot(document.getElementById('root')!).render(
   <HashRouter>
     <ApolloProvider client={graphqlClient}>
       <App />
     </ApolloProvider>
-  </HashRouter>,
-  document.getElementById('root')
-);
+  </HashRouter>
+)
 
 rootStore.apiArticle.getArticleInfo()

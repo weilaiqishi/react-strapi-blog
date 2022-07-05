@@ -7,6 +7,7 @@ interface Props {
   isLink: boolean
   link?: string
   content?: ReactNode
+  children: any
 }
 
 const IcoBtn: React.FC<Props> = ({ isLink, link, content, children }) => {

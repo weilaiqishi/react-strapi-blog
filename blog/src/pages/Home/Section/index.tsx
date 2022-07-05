@@ -31,25 +31,30 @@ const Section: React.FC = () => {
 
   return (
     <section className={s.section}>
-      {data?.data?.map(({ id, attributes: { title, content, createdAt, tags, titleEng } }) => (
-        <PostCard
-          key={id}
-          title={title}
-          content={content}
-          date={createdAt}
-          tags={tags}
-          loading={loading}
-          onClick={() => store.uiStore.toArticleDetailOrMsg(titleEng, navigate)}
-        />
-      ))}
-      <MyPagination
-        current={page}
-        defaultPageSize={homeSize}
-        total={data?.meta.pagination.total}
-        setPage={setPage}
-        autoScroll={true}
-        scrollToTop={document.body.clientHeight - 80}
-      />
+      {
+        data?.data &&
+        <>
+          {data.data?.map(({ id, attributes: { title, content, createdAt, tags, titleEng } }) => (
+            <PostCard
+              key={id}
+              title={title}
+              content={content}
+              date={createdAt}
+              tags={tags}
+              loading={loading}
+              onClick={() => store.uiStore.toArticleDetailOrMsg(titleEng, navigate)}
+            />
+          ))}
+          <MyPagination
+            current={page}
+            defaultPageSize={homeSize}
+            total={data?.meta.pagination.total}
+            setPage={setPage}
+            autoScroll={true}
+            scrollToTop={document.body.clientHeight - 80}
+          />
+        </>
+      }
     </section>
   )
 }

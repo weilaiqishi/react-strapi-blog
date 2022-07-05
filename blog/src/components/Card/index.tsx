@@ -9,6 +9,7 @@ interface Props {
   loading?: boolean
   isStatic?: boolean
   onClick?: MouseEventHandler<HTMLDivElement>
+  children: any
 }
 
 const Card: React.FC<Props> = ({ children, className, loading, isStatic, onClick }) => {

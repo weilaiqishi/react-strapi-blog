@@ -13,7 +13,7 @@ import {
   useSafeState,
   useUpdateEffect
 } from 'ahooks'
-import { Drawer } from 'antd'
+import { Drawer as DrawerAny } from 'antd'
 import classNames from 'classnames'
 import { useLocalObservable, useObserver } from 'mobx-react'
 import React, { useEffect } from 'react'
@@ -30,6 +30,8 @@ interface Props {
   mode?: number
   setMode?: Function
 }
+
+const Drawer: any = DrawerAny
 
 const bodyStyle = window.document.getElementsByTagName('body')[0].style
 

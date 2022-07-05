@@ -2,10 +2,10 @@ import React, { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import ErrorBoundary from '@/components/ErrorBoundary'
+import Home from '@/pages/Home'
 
 import s from './index.scss'
 
-const Home = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Home'))
 const Articles = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Articles'))
 const Categories = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Categories'))
 const Tags = lazy(() => import(/* webpackPrefetch:true */ '@/pages/Tags'))

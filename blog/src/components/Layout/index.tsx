@@ -22,6 +22,7 @@ interface Props {
   categories?: string
   date?: number | string
   rows?: number
+  children: any
 }
 
 const Layout: React.FC<Props> = ({

@@ -2,7 +2,7 @@ import './index.custom.scss'
 
 import { MenuFoldOutlined } from '@ant-design/icons'
 import { useBoolean } from 'ahooks'
-import { Drawer } from 'antd'
+import { Drawer as DrawerAny } from 'antd'
 import classNames from 'classnames'
 import MarkNav from 'markdown-navbar'
 import { useLocalObservable, useObserver } from 'mobx-react'
@@ -16,6 +16,8 @@ interface Props {
   content?: string
   setNavShow?: Function
 }
+
+const Drawer: any = DrawerAny
 
 const Navbar: React.FC<Props> = ({ content }) => {
   const store = useLocalObservable(() => rootStore)

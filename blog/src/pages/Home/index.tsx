@@ -1,7 +1,6 @@
 import { useMount, useSafeState, useTitle } from 'ahooks'
 import { useLocalObservable, useObserver } from 'mobx-react'
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { Profiler } from 'react'
 
 import PageTitle from '@/components/PageTitle'
 import { rootStore } from '@/mobx'
